@@ -1,0 +1,32 @@
+{
+    "mcpServers": {
+        "content-repository": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/ibm-ecm/ibm-content-services-mcp-server",
+                "core-cs-mcp-server"
+            ],
+            "env": {
+                "USERNAME": "",
+                "PASSWORD": "",
+                "SERVER_URL": ".../content-services-graphql/graphql",
+                "OBJECT_STORE": "OS1"
+            },
+            "alwaysAllow": [
+                "lookup_documents_by_name",
+                "lookup_documents_by_path",
+                "get_document_properties",
+                "list_root_classes",
+                "list_all_classes",
+                "get_class_property_descriptions",
+                "determine_class",
+                "create_folder",
+                "create_document",
+                "get_folder_detail",
+                "get_document_text_extract",
+                "update_document_class"
+            ]
+        }
+    }
+}

@@ -19,7 +19,6 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-.bob/mcp.*
 .bob/test.json
 
 
@@ -57,4 +56,3 @@ HR_JABRI/
 *.tmp
 *.bak
 .bob/mcp.old
-#   .bob/mcp.json
