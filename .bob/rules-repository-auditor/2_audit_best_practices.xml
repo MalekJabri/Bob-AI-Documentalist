@@ -1,0 +1,515 @@
+<audit_best_practices>
+  <overview>
+    Best practices and guidelines for conducting effective repository audits that provide
+    actionable insights and drive meaningful improvements.
+  </overview>
+
+  <folder_structure_management>
+    <principle priority="high">
+      <name>Organized Audit Folder Structure</name>
+      <description>
+        Always create a well-organized folder structure for each audit. This ensures all
+        artifacts are properly organized, easy to find, and can coexist with other audits.
+      </description>
+      <rationale>
+        Proper organization makes audit results accessible, supports multiple audits of the
+        same or different Object Stores, and provides clear separation between different
+        types of artifacts (reports, data, analysis, recommendations).
+      </rationale>
+      <structure>
+        audits/
+        └── [ObjectStoreName]_[YYYY-MM-DD]/
+            ├── audit_metadata.json
+            ├── README.md
+            ├── reports/
+            │   ├── Repository_Audit_Report.md
+            │   └── Executive_Summary.md
+            ├── data/
+            │   ├── class_inventory.csv
+            │   ├── property_matrix.csv
+            │   ├── document_counts.csv
+            │   └── integration_points.json
+            ├── analysis/
+            │   ├── class_analysis.md
+            │   ├── property_analysis.md
+            │   └── folder_analysis.md
+            └── recommendations/
+                ├── consolidation_plans.md
+                ├── cleanup_actions.md
+                └── implementation_roadmap.md
+      </structure>
+      <benefits>
+        <benefit>Clear separation of concerns (reports vs data vs recommendations)</benefit>
+        <benefit>Easy navigation with README.md as entry point</benefit>
+        <benefit>Multiple audits can coexist without conflicts</benefit>
+        <benefit>Object Store name in folder makes identification easy</benefit>
+        <benefit>Date stamp enables version tracking and comparison</benefit>
+        <benefit>Metadata file provides audit context and history</benefit>
+      </benefits>
+      <implementation>
+        <step>1. Identify Object Store name at audit start</step>
+        <step>2. Create folder structure using execute_command with mkdir -p</step>
+        <step>3. Create audit_metadata.json with audit context</step>
+        <step>4. Generate all artifacts in appropriate subfolders</step>
+        <step>5. Create README.md as navigation guide</step>
+        <step>6. Update metadata on completion</step>
+      </implementation>
+    </principle>
+
+    <principle priority="high">
+      <name>Consistent File Naming</name>
+      <description>
+        Use consistent, descriptive file names across all audits. This makes it easy to
+        understand file contents and compare across different audits.
+      </description>
+      <naming_conventions>
+        <convention category="reports">
+          - Repository_Audit_Report.md (main comprehensive report)
+          - Executive_Summary.md (high-level summary for stakeholders)
+        </convention>
+        <convention category="data">
+          - class_inventory.csv (complete class list with statistics)
+          - property_matrix.csv (property usage across classes)
+          - document_counts.csv (document counts per class)
+          - integration_points.json (integration property mapping)
+        </convention>
+        <convention category="analysis">
+          - class_analysis.md (detailed class findings)
+          - property_analysis.md (property usage and issues)
+          - folder_analysis.md (folder structure assessment)
+        </convention>
+        <convention category="recommendations">
+          - consolidation_plans.md (class consolidation strategies)
+          - cleanup_actions.md (cleanup tasks and priorities)
+          - implementation_roadmap.md (phased implementation plan)
+        </convention>
+      </naming_conventions>
+    </principle>
+
+    <principle priority="medium">
+      <name>Audit Metadata Tracking</name>
+      <description>
+        Maintain audit_metadata.json to track audit context, status, and history.
+      </description>
+      <metadata_structure>
+        {
+          "object_store": "OS1",
+          "audit_date": "2026-05-18T18:00:00Z",
+          "audit_type": "full",
+          "auditor": "Bob Repository Auditor",
+          "scope": "Comprehensive repository audit",
+          "status": "completed",
+          "completion_date": "2026-05-18T19:30:00Z",
+          "statistics": {
+            "total_classes": 91,
+            "total_properties": 450,
+            "total_documents": 5000,
+            "high_priority_issues": 5,
+            "medium_priority_issues": 12,
+            "low_priority_issues": 8
+          },
+          "artifacts": [
+            "reports/Repository_Audit_Report.md",
+            "reports/Executive_Summary.md",
+            "data/class_inventory.csv",
+            "recommendations/consolidation_plans.md"
+          ]
+        }
+      </metadata_structure>
+      <benefits>
+        <benefit>Provides audit history and tracking</benefit>
+        <benefit>Enables comparison across multiple audits</benefit>
+        <benefit>Documents audit scope and objectives</benefit>
+        <benefit>Lists all generated artifacts</benefit>
+      </benefits>
+    </principle>
+  </folder_structure_management>
+
+  <general_principles>
+    <principle priority="high">
+      <name>Systematic and Methodical Approach</name>
+      <description>
+        Follow the audit workflow phases in order. Complete each phase before moving to the next.
+        This ensures comprehensive coverage and prevents missing critical information.
+      </description>
+      <rationale>
+        Repository audits involve complex, interconnected data. A systematic approach ensures
+        nothing is overlooked and findings are properly contextualized.
+      </rationale>
+      <example>
+        <good>
+          1. List all root classes
+          2. For each class, get properties
+          3. For each class, count documents
+          4. Analyze patterns across all classes
+          5. Generate consolidated report
+        </good>
+        <bad>
+          Jumping between different classes randomly, analyzing some properties but not others,
+          generating partial reports without complete data.
+        </bad>
+      </example>
+    </principle>
+
+    <principle priority="high">
+      <name>Document as You Go</name>
+      <description>
+        Create the audit report file at the start and continuously update it with findings.
+        Don't wait until the end to document everything.
+      </description>
+      <rationale>
+        Audits generate large amounts of data. Documenting incrementally prevents information
+        loss and makes it easier to spot patterns as they emerge.
+      </rationale>
+      <example>
+        <good>
+          After analyzing each class, immediately add a section to the report with:
+          - Class name and description
+          - Property count and types
+          - Document count
+          - Initial observations
+        </good>
+        <bad>
+          Analyzing all classes first, then trying to remember and document everything at the end.
+        </bad>
+      </example>
+    </principle>
+
+    <principle priority="high">
+      <name>Use Concrete Examples</name>
+      <description>
+        When identifying issues or patterns, always provide specific examples with actual
+        class names, property names, and data.
+      </description>
+      <rationale>
+        Concrete examples make findings actionable and help stakeholders understand the issues.
+        Generic statements are less useful for driving change.
+      </rationale>
+      <example>
+        <good>
+          "Found 4 duplicate client document classes:
+          - ClientDocument (150 docs)
+          - usr1_Client_Document (23 docs)
+          - usr2_Client_document (8 docs)
+          - welClientDocument (45 docs)
+          
+          Recommendation: Consolidate into single Client_Document class."
+        </good>
+        <bad>
+          "There are some duplicate classes that should be consolidated."
+        </bad>
+      </example>
+    </principle>
+
+    <principle priority="medium">
+      <name>Balance Depth with Practicality</name>
+      <description>
+        Provide thorough analysis while respecting time constraints. Focus on high-impact
+        findings rather than exhaustive detail on every minor issue.
+      </description>
+      <rationale>
+        Users need actionable insights, not overwhelming detail. Prioritize findings that
+        will drive the most value.
+      </rationale>
+    </principle>
+
+    <principle priority="medium">
+      <name>Consider Business Context</name>
+      <description>
+        Technical findings should be framed in business terms. Explain the impact of issues
+        on users, processes, and organizational goals.
+      </description>
+      <rationale>
+        Stakeholders need to understand why issues matter and how fixes will benefit the
+        organization to prioritize and fund improvements.
+      </rationale>
+    </principle>
+  </general_principles>
+
+  <data_collection_practices>
+    <practice category="class_analysis">
+      <guideline>Always start with list_root_classes to understand available class types</guideline>
+      <guideline>Use determine_class with broad keywords to discover all classes</guideline>
+      <guideline>Get complete property descriptions for each class using get_class_property_descriptions</guideline>
+      <guideline>Count documents per class to assess usage</guideline>
+      <guideline>Document the class hierarchy and inheritance relationships</guideline>
+    </practice>
+
+    <practice category="property_analysis">
+      <guideline>Categorize properties into system, business, and integration types</guideline>
+      <guideline>Note data types, cardinality, and searchability for each property</guideline>
+      <guideline>Identify properties with unclear purposes or missing descriptions</guideline>
+      <guideline>Look for naming inconsistencies across similar properties</guideline>
+      <guideline>Use get_searchable_property_descriptions to understand search capabilities</guideline>
+    </practice>
+
+    <practice category="folder_analysis">
+      <guideline>Start with root folders and work down the hierarchy</guideline>
+      <guideline>Document folder naming conventions and patterns</guideline>
+      <guideline>Note folder depth and organization strategies</guideline>
+      <guideline>Identify empty folders or orphaned structures</guideline>
+      <guideline>Sample folder contents to verify organization effectiveness</guideline>
+    </practice>
+
+    <practice category="document_sampling">
+      <guideline>Sample documents from different classes to verify metadata quality</guideline>
+      <guideline>Check property population rates (how many documents have values)</guideline>
+      <guideline>Verify classification accuracy by examining document content</guideline>
+      <guideline>Look for patterns in document types and categories</guideline>
+      <guideline>Assess version management practices</guideline>
+    </practice>
+  </data_collection_practices>
+
+  <analysis_guidelines>
+    <guideline category="pattern_recognition">
+      <name>Identify Naming Convention Patterns</name>
+      <description>
+        Look for prefixes, suffixes, and naming patterns that indicate:
+        - Organizational structure (HR_, FIN_, LEG_)
+        - User-specific classes (usr1_, usr2_)
+        - Integration points (SAP, SF, wel)
+        - Demo/test classes (Demo, Test, Sample)
+      </description>
+      <action>
+        Group classes by pattern and assess whether the pattern serves a valid purpose
+        or indicates technical debt.
+      </action>
+    </guideline>
+
+    <guideline category="duplication_detection">
+      <name>Identify Duplicate or Overlapping Classes</name>
+      <description>
+        Look for classes that:
+        - Have similar names (Invoice, Invoice_ach, JKJInvoice)
+        - Serve similar purposes with slight variations
+        - Have overlapping property sets
+        - Could be consolidated with a Type or Category property
+      </description>
+      <action>
+        Document each set of duplicates with document counts and recommend consolidation
+        strategies.
+      </action>
+    </guideline>
+
+    <guideline category="usage_assessment">
+      <name>Assess Class and Property Usage</name>
+      <description>
+        Classify classes and properties by usage level:
+        - Active (more than 100 documents, regular use)
+        - Moderate (10-100 documents, occasional use)
+        - Minimal (less than 10 documents, rare use)
+        - Unused (0 documents)
+      </description>
+      <action>
+        Recommend keeping active classes, reviewing moderate classes, and deprecating
+        minimal/unused classes.
+      </action>
+    </guideline>
+
+    <guideline category="governance_gaps">
+      <name>Identify Governance Gaps</name>
+      <description>
+        Look for indicators of weak governance:
+        - Classes without clear descriptions
+        - Inconsistent naming conventions
+        - Demo/test classes in production
+        - User-specific classes (should be generic)
+        - Properties without descriptions
+        - Unclear ownership
+      </description>
+      <action>
+        Recommend governance improvements including naming standards, documentation
+        requirements, and approval processes.
+      </action>
+    </guideline>
+
+    <guideline category="integration_assessment">
+      <name>Document Integration Points</name>
+      <description>
+        Identify and document all integration properties:
+        - SAP integration (SAP* properties)
+        - Salesforce integration (SF* properties)
+        - DocuFlow integration (docuflow* properties)
+        - Custom integrations
+      </description>
+      <action>
+        Document which classes use each integration, property naming patterns, and
+        recommend standardization if inconsistent.
+      </action>
+    </guideline>
+  </analysis_guidelines>
+
+  <reporting_standards>
+    <standard category="structure">
+      <requirement>Use clear hierarchical structure with numbered sections</requirement>
+      <requirement>Include table of contents for reports >5 pages</requirement>
+      <requirement>Use consistent heading levels (# for main sections, ## for subsections)</requirement>
+      <requirement>Include executive summary at the beginning</requirement>
+      <requirement>Place detailed data in appendices or separate files</requirement>
+    </standard>
+
+    <standard category="content">
+      <requirement>Start each section with a brief overview</requirement>
+      <requirement>Use tables for structured data (class lists, property matrices)</requirement>
+      <requirement>Include specific examples for each finding</requirement>
+      <requirement>Provide quantitative metrics where possible (counts, percentages)</requirement>
+      <requirement>End each section with key takeaways or recommendations</requirement>
+    </standard>
+
+    <standard category="recommendations">
+      <requirement>Prioritize recommendations (High, Medium, Low)</requirement>
+      <requirement>Estimate effort level (Quick win, Short-term, Long-term)</requirement>
+      <requirement>Describe expected benefits for each recommendation</requirement>
+      <requirement>Provide specific action steps, not just general suggestions</requirement>
+      <requirement>Consider dependencies between recommendations</requirement>
+    </standard>
+
+    <standard category="formatting">
+      <requirement>Use markdown formatting consistently</requirement>
+      <requirement>Use code blocks for class/property names: `ClassName`</requirement>
+      <requirement>Use tables for comparative data</requirement>
+      <requirement>Use bullet points for lists</requirement>
+      <requirement>Use bold for emphasis on key findings</requirement>
+    </standard>
+  </reporting_standards>
+
+  <common_pitfalls>
+    <pitfall>
+      <description>Analyzing too few classes to identify patterns</description>
+      <why_problematic>
+        Patterns and issues only become apparent when analyzing multiple classes.
+        Looking at 1-2 classes won't reveal systemic issues.
+      </why_problematic>
+      <correct_approach>
+        Analyze all classes.
+        This provides sufficient data to identify patterns and make valid recommendations.
+      </correct_approach>
+    </pitfall>
+
+    <pitfall>
+      <description>Focusing only on technical details without business context</description>
+      <why_problematic>
+        Technical findings without business impact don't drive action. Stakeholders need
+        to understand why issues matter.
+      </why_problematic>
+      <correct_approach>
+        For each finding, explain the business impact:
+        - How does this affect users?
+        - What processes are impacted?
+        - What are the costs (time, money, risk)?
+        - What benefits come from fixing it?
+      </correct_approach>
+    </pitfall>
+
+    <pitfall>
+      <description>Providing vague recommendations</description>
+      <why_problematic>
+        Recommendations like "improve governance" or "clean up classes" don't provide
+        actionable guidance.
+      </why_problematic>
+      <correct_approach>
+        Provide specific, actionable recommendations:
+        - "Consolidate Invoice, Invoice_ach, and JKJInvoice into Finance_Invoice class"
+        - "Remove 5 demo classes: DemoDocument, TestDoc, SampleClass, etc."
+        - "Establish naming convention: [Domain]_[Type]_[Variant]"
+      </correct_approach>
+    </pitfall>
+
+    <pitfall>
+      <description>Overwhelming users with too much detail</description>
+      <why_problematic>
+        Extremely detailed reports with every property of every class are hard to digest
+        and don't highlight what's important.
+      </why_problematic>
+      <correct_approach>
+        Use a layered approach:
+        - Executive summary with key findings
+        - Main report with analysis and recommendations
+        - Appendices with detailed data
+        - Separate CSV/JSON files for complete inventories
+      </correct_approach>
+    </pitfall>
+
+    <pitfall>
+      <description>Not validating findings with document samples</description>
+      <why_problematic>
+        Class definitions don't always reflect actual usage. Documents might be
+        misclassified or have incomplete metadata.
+      </why_problematic>
+      <correct_approach>
+        Sample actual documents to verify:
+        - Classification accuracy
+        - Property population rates
+        - Metadata quality
+        - Content alignment with class purpose
+      </correct_approach>
+    </pitfall>
+  </common_pitfalls>
+
+  <quality_checklist>
+    <category name="before_starting">
+      <item>Confirm audit scope and objectives with user</item>
+      <item>Verify MCP server connection is working</item>
+      <item>Create audit report file structure</item>
+      <item>Understand user's context and constraints</item>
+    </category>
+
+    <category name="during_audit">
+      <item>Follow workflow phases systematically</item>
+      <item>Document findings incrementally</item>
+      <item>Use concrete examples for all findings</item>
+      <item>Validate patterns across multiple classes</item>
+      <item>Sample documents to verify metadata quality</item>
+      <item>Note both issues and positive practices</item>
+    </category>
+
+    <category name="before_completion">
+      <item>Review report for completeness</item>
+      <item>Verify all recommendations are actionable</item>
+      <item>Check that examples support findings</item>
+      <item>Ensure executive summary captures key points</item>
+      <item>Validate that metrics and counts are accurate</item>
+      <item>Confirm report structure is clear and logical</item>
+    </category>
+  </quality_checklist>
+
+  <efficiency_tips>
+    <tip>
+      <title>Batch Similar Operations</title>
+      <description>
+        When analyzing multiple classes, batch similar operations together.
+        For example, get property descriptions for 3-5 classes, then analyze them all,
+        rather than fully analyzing one class before moving to the next.
+      </description>
+    </tip>
+
+    <tip>
+      <title>Use Search Strategically</title>
+      <description>
+        Use document_search with empty search_properties to get document counts quickly.
+        Only do detailed document analysis on representative samples, not every document.
+      </description>
+    </tip>
+
+    <tip>
+      <title>Focus on High-Impact Areas</title>
+      <description>
+        If time is limited, focus on:
+        1. Classes with the most documents (highest impact)
+        2. Classes with obvious issues (duplicates, poor naming)
+        3. Integration points (often critical)
+        4. Classes without documentation (governance gaps)
+      </description>
+    </tip>
+
+    <tip>
+      <title>Leverage Patterns</title>
+      <description>
+        Once you identify a pattern (e.g., user-specific classes), you don't need to
+        analyze every instance in detail. Document the pattern and list all instances.
+      </description>
+    </tip>
+  </efficiency_tips>
+</audit_best_practices>
+
+<!-- Made with Bob -->

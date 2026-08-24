@@ -1,0 +1,591 @@
+<mcp_tool_usage_guide>
+  <overview>
+    Specific guidance for using MCP tools effectively during repository audits.
+    This guide covers the content-repository MCP server tools and their optimal usage patterns.
+  </overview>
+
+  <tool_priorities>
+    <priority level="1">
+      <tool>list_root_classes</tool>
+      <when>Always use first to understand available class types in the repository</when>
+      <why>Provides the foundation for all class-based analysis</why>
+      <usage_pattern>
+        Call once at the start of the audit to get Document, Folder, and other root classes
+      </usage_pattern>
+    </priority>
+
+    <priority level="2">
+      <tool>determine_class</tool>
+      <when>Use to discover all classes of a specific root type</when>
+      <why>Semantic search finds classes better than manual browsing</why>
+      <usage_pattern>
+        Use with broad keywords to discover classes:
+        - For all Document classes: keywords ["document", "class", "all"]
+        - For specific domains: keywords ["HR", "employee"], ["invoice", "financial"]
+      </usage_pattern>
+    </priority>
+
+    <priority level="3">
+      <tool>get_class_property_descriptions</tool>
+      <when>After identifying classes, get complete property information</when>
+      <why>Provides full property metadata including types, cardinality, searchability</why>
+      <usage_pattern>
+        Call for each class you want to analyze in detail
+      </usage_pattern>
+    </priority>
+
+    <priority level="4">
+      <tool>document_search or repository_object_search</tool>
+      <when>To count documents per class or find specific document types</when>
+      <why>Assesses actual usage and validates class relevance</why>
+      <usage_pattern>
+        Use document_search for Document classes, repository_object_search for other types
+      </usage_pattern>
+    </priority>
+  </tool_priorities>
+
+  <tool_specific_guidance>
+    <tool name="list_root_classes">
+      <purpose>
+        Retrieves all root class types available in the repository (Document, Folder, Annotation, etc.)
+      </purpose>
+      <when_to_use>
+        - At the very start of every audit
+        - To understand the repository's class architecture
+        - Before using determine_class to know which root classes to search
+      </when_to_use>
+      <parameters>
+        <parameter name="none">This tool takes no parameters</parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>list_root_classes</tool_name>
+<arguments>
+{}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <expected_output>
+        List of root classes like: Document, Folder, Annotation, CustomObject, etc.
+      </expected_output>
+      <best_practices>
+        <practice>Call this once at the beginning of the audit</practice>
+        <practice>Document the root classes in your audit report</practice>
+        <practice>Focus primarily on Document and Folder classes for most audits</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="determine_class">
+      <purpose>
+        Finds classes matching given keywords by searching class names and descriptions
+      </purpose>
+      <when_to_use>
+        - To discover all classes of a specific root type
+        - To find classes related to a specific domain (HR, Finance, etc.)
+        - When you need to build a comprehensive class inventory
+      </when_to_use>
+      <parameters>
+        <parameter name="root_class" required="true">
+          The root class to search within (e.g., "Document", "Folder")
+          Must be a valid root class from list_root_classes
+        </parameter>
+        <parameter name="keywords" required="true">
+          Array of up to 3 keywords to search for in class names and descriptions
+          Use broad terms to find more classes, specific terms to narrow results
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>determine_class</tool_name>
+<arguments>
+{
+  "root_class": "Document",
+  "keywords": ["HR", "employee", "personnel"]
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <keyword_strategies>
+        <strategy name="comprehensive_discovery">
+          <description>Find all classes of a root type</description>
+          <keywords>["document", "class", "all"]</keywords>
+          <keywords>["folder", "directory", "container"]</keywords>
+        </strategy>
+        <strategy name="domain_specific">
+          <description>Find classes in a specific business domain</description>
+          <keywords>["HR", "employee", "personnel"]</keywords>
+          <keywords>["invoice", "financial", "payment"]</keywords>
+          <keywords>["contract", "legal", "agreement"]</keywords>
+        </strategy>
+        <strategy name="pattern_based">
+          <description>Find classes with specific naming patterns</description>
+          <keywords>["demo", "test", "sample"]</keywords>
+          <keywords>["usr1", "usr2", "user"]</keywords>
+          <keywords>["SAP", "integration", "external"]</keywords>
+        </strategy>
+      </keyword_strategies>
+      <best_practices>
+        <practice>Start with broad keywords to discover all classes</practice>
+        <practice>Use multiple searches with different keyword combinations</practice>
+        <practice>Document all discovered classes before analyzing in detail</practice>
+        <practice>Look for patterns in class names (prefixes, suffixes)</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_class_property_descriptions">
+      <purpose>
+        Retrieves ALL properties of a class including system and custom properties
+      </purpose>
+      <when_to_use>
+        - For detailed class analysis
+        - To understand property types, cardinality, and searchability
+        - To identify custom vs system properties
+        - To document class structure
+      </when_to_use>
+      <parameters>
+        <parameter name="class_symbolic_name" required="true">
+          The symbolic name of the class (e.g., "HRDocument", "Invoice")
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_class_property_descriptions</tool_name>
+<arguments>
+{
+  "class_symbolic_name": "HRDocument"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <output_analysis>
+        <analyze>Property count (total, custom, system)</analyze>
+        <analyze>Data types (STRING, INTEGER, DATE, BOOLEAN, OBJECT)</analyze>
+        <analyze>Cardinality (single-value vs multi-value)</analyze>
+        <analyze>Searchability (which properties are indexed)</analyze>
+        <analyze>Property naming patterns and conventions</analyze>
+        <analyze>Integration properties (SAP, Salesforce, etc.)</analyze>
+        <analyze>Missing descriptions or unclear purposes</analyze>
+      </output_analysis>
+      <best_practices>
+        <practice>Categorize properties into system, business, and integration types</practice>
+        <practice>Note properties without descriptions</practice>
+        <practice>Identify properties that might be duplicates or overlapping</practice>
+        <practice>Document unusual data types or cardinality</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_searchable_property_descriptions">
+      <purpose>
+        Retrieves only the searchable properties of a class
+      </purpose>
+      <when_to_use>
+        - To understand which properties are indexed for search
+        - To assess search capabilities
+        - To identify properties that should be searchable but aren't
+      </when_to_use>
+      <parameters>
+        <parameter name="class_symbolic_name" required="true">
+          The symbolic name of the class
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_searchable_property_descriptions</tool_name>
+<arguments>
+{
+  "class_symbolic_name": "HRDocument"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Compare searchable vs total properties to assess indexing strategy</practice>
+        <practice>Identify business-critical properties that aren't searchable</practice>
+        <practice>Note if too many properties are searchable (performance impact)</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="document_search">
+      <purpose>
+        Searches for documents based on class and property criteria
+      </purpose>
+      <prerequisites>
+        <prerequisite>Must call determine_class first to get valid class name</prerequisite>
+        <prerequisite>Must call get_searchable_property_descriptions to get valid property names</prerequisite>
+      </prerequisites>
+      <when_to_use>
+        - To count documents in a class (use empty search_properties)
+        - To find documents with specific property values
+        - To sample documents for analysis
+        - To assess property population rates
+      </when_to_use>
+      <parameters>
+        <parameter name="search_parameters" required="true">
+          Object containing:
+          - search_class: Class symbolic name
+          - search_properties: Array of filter conditions (can be empty for count)
+        </parameter>
+        <parameter name="search_term" optional="true">
+          Content-based search term (CBR search)
+        </parameter>
+        <parameter name="max_results" optional="true">
+          Maximum number of results (default: 10)
+        </parameter>
+      </parameters>
+      <usage_example_count>
+        <description>Count all documents in a class</description>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>document_search</tool_name>
+<arguments>
+{
+  "search_parameters": {
+    "search_class": "HRDocument",
+    "search_properties": []
+  },
+  "max_results": 1000
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example_count>
+      <usage_example_filter>
+        <description>Find documents with specific property values</description>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>document_search</tool_name>
+<arguments>
+{
+  "search_parameters": {
+    "search_class": "HRDocument",
+    "search_properties": [
+      {
+        "property_name": "Department",
+        "property_value": "IT",
+        "operator": "="
+      }
+    ]
+  },
+  "max_results": 50
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example_filter>
+      <operators>
+        <operator name="equals">Exact match (=)</operator>
+        <operator name="not_equal">Not equal (!=)</operator>
+        <operator name="greater_than">Greater than</operator>
+        <operator name="less_than">Less than</operator>
+        <operator name="greater_equal">Greater than or equal</operator>
+        <operator name="less_equal">Less than or equal</operator>
+        <operator name="CONTAINS">Substring match</operator>
+        <operator name="STARTS">Prefix match</operator>
+        <operator name="ENDS">Suffix match</operator>
+      </operators>
+      <best_practices>
+        <practice>Use empty search_properties to get document counts</practice>
+        <practice>Use max_results to limit large result sets</practice>
+        <practice>Sample documents from different classes for comparison</practice>
+        <practice>Use CONTAINS operator for flexible text matching</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="repository_object_search">
+      <purpose>
+        Searches for repository objects other than documents (Folders, Annotations, etc.)
+      </purpose>
+      <prerequisites>
+        <prerequisite>Must call determine_class first to get valid class name</prerequisite>
+        <prerequisite>Must call get_searchable_property_descriptions for property names</prerequisite>
+      </prerequisites>
+      <when_to_use>
+        - To find folders in the repository
+        - To count objects of non-Document classes
+        - To analyze folder structure and organization
+      </when_to_use>
+      <parameters>
+        <parameter name="search_parameters" required="true">
+          Same structure as document_search
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>repository_object_search</tool_name>
+<arguments>
+{
+  "search_parameters": {
+    "search_class": "Folder",
+    "search_properties": []
+  }
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Use for Folder class analysis</practice>
+        <practice>Identify root folders by searching with empty properties</practice>
+        <practice>Document folder naming conventions</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_document_properties">
+      <purpose>
+        Retrieves properties of a specific document by ID or path
+      </purpose>
+      <when_to_use>
+        - To examine a specific document's metadata
+        - To verify property population
+        - To sample document quality
+        - After finding documents with document_search
+      </when_to_use>
+      <parameters>
+        <parameter name="identifier" required="true">
+          Document ID (GUID) or path (e.g., "/Folder1/document.pdf")
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_document_properties</tool_name>
+<arguments>
+{
+  "identifier": "{12345678-1234-1234-1234-123456789012}"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Sample documents from different classes</practice>
+        <practice>Check property population rates</practice>
+        <practice>Verify metadata quality and completeness</practice>
+        <practice>Use to validate classification accuracy</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_document_text_extract">
+      <purpose>
+        Retrieves the text content extracted from a document
+      </purpose>
+      <when_to_use>
+        - To verify document classification accuracy
+        - To understand document content patterns
+        - To assess whether documents are in the right class
+        - For content-based analysis
+      </when_to_use>
+      <parameters>
+        <parameter name="identifier" required="true">
+          Document ID (GUID) or path
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_document_text_extract</tool_name>
+<arguments>
+{
+  "identifier": "{12345678-1234-1234-1234-123456789012}"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Use to verify documents are correctly classified</practice>
+        <practice>Sample a few documents per class, not all</practice>
+        <practice>Check if content matches class purpose</practice>
+        <practice>Identify misclassified documents</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_document_versions">
+      <purpose>
+        Retrieves all versions in a document's version series
+      </purpose>
+      <when_to_use>
+        - To assess version management practices
+        - To identify version sprawl issues
+        - To understand versioning patterns
+      </when_to_use>
+      <parameters>
+        <parameter name="identifier" required="true">
+          Document ID (GUID) or path
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_document_versions</tool_name>
+<arguments>
+{
+  "identifier": "{12345678-1234-1234-1234-123456789012}"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Sample versioned documents to understand patterns</practice>
+        <practice>Identify documents with excessive versions</practice>
+        <practice>Document version management practices</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_folder_detail">
+      <purpose>
+        Retrieves detailed information about a specific folder
+      </purpose>
+      <when_to_use>
+        - To examine folder properties and metadata
+        - To understand folder organization
+        - After finding folders with repository_object_search
+      </when_to_use>
+      <parameters>
+        <parameter name="identifier" required="true">
+          Folder ID (GUID)
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_folder_detail</tool_name>
+<arguments>
+{
+  "identifier": "{87654321-4321-4321-4321-210987654321}"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Use to understand folder structure</practice>
+        <practice>Document folder naming conventions</practice>
+        <practice>Identify folder organization patterns</practice>
+      </best_practices>
+    </tool>
+
+    <tool name="get_folder_documents">
+      <purpose>
+        Retrieves documents contained in a specific folder
+      </purpose>
+      <when_to_use>
+        - To see what documents are in a folder
+        - To assess folder organization effectiveness
+        - To understand document filing patterns
+      </when_to_use>
+      <parameters>
+        <parameter name="folder_id_or_path" required="true">
+          Folder ID (GUID) or path
+        </parameter>
+      </parameters>
+      <usage_example>
+        <![CDATA[
+<use_mcp_tool>
+<server_name>content-repository</server_name>
+<tool_name>get_folder_documents</tool_name>
+<arguments>
+{
+  "folder_id_or_path": "/BOB_LAB/DUPONT"
+}
+</arguments>
+</use_mcp_tool>
+        ]]>
+      </usage_example>
+      <best_practices>
+        <practice>Sample folders at different hierarchy levels</practice>
+        <practice>Check if documents are appropriately organized</practice>
+        <practice>Identify empty folders or poor organization</practice>
+      </best_practices>
+    </tool>
+  </tool_specific_guidance>
+
+  <common_workflows>
+    <workflow name="class_inventory">
+      <title>Building a Complete Class Inventory</title>
+      <steps>
+        <step>1. Call list_root_classes to get root class types</step>
+        <step>2. For each root class (especially Document), call determine_class with broad keywords</step>
+        <step>3. For each discovered class, call get_class_property_descriptions</step>
+        <step>4. For each class, call document_search with empty properties to count documents</step>
+        <step>5. Document all findings in the audit report</step>
+      </steps>
+    </workflow>
+
+    <workflow name="property_analysis">
+      <title>Analyzing Property Usage and Quality</title>
+      <steps>
+        <step>1. Get class list from previous inventory</step>
+        <step>2. For each class, call get_class_property_descriptions</step>
+        <step>3. Categorize properties (system, business, integration)</step>
+        <step>4. Call get_searchable_property_descriptions to identify indexed properties</step>
+        <step>5. Sample documents with get_document_properties to check population rates</step>
+        <step>6. Document property patterns and issues</step>
+      </steps>
+    </workflow>
+
+    <workflow name="folder_structure_analysis">
+      <title>Analyzing Folder Organization</title>
+      <steps>
+        <step>1. Call repository_object_search for Folder class with empty properties</step>
+        <step>2. For key folders, call get_folder_detail</step>
+        <step>3. For sample folders, call get_folder_documents</step>
+        <step>4. Document folder hierarchy and naming conventions</step>
+        <step>5. Identify organization patterns and issues</step>
+      </steps>
+    </workflow>
+
+    <workflow name="document_sampling">
+      <title>Sampling Documents for Quality Assessment</title>
+      <steps>
+        <step>1. Use document_search to find sample documents from each class</step>
+        <step>2. Call get_document_properties for each sample</step>
+        <step>3. Call get_document_text_extract to verify classification</step>
+        <step>4. Check property population and metadata quality</step>
+        <step>5. Document findings and classification accuracy</step>
+      </steps>
+    </workflow>
+  </common_workflows>
+
+  <error_handling>
+    <error type="class_not_found">
+      <description>Class name doesn't exist or is misspelled</description>
+      <solution>Use determine_class to find the correct class name</solution>
+    </error>
+    <error type="property_not_searchable">
+      <description>Trying to search on a non-searchable property</description>
+      <solution>Use get_searchable_property_descriptions to get valid property names</solution>
+    </error>
+    <error type="invalid_operator">
+      <description>Using wrong operator for property type</description>
+      <solution>Use = for exact matches, CONTAINS for text searches</solution>
+    </error>
+    <error type="no_results">
+      <description>Search returns no results</description>
+      <solution>Verify class name, property names, and search criteria are correct</solution>
+    </error>
+  </error_handling>
+</mcp_tool_usage_guide>
+
+<!-- Made with Bob -->

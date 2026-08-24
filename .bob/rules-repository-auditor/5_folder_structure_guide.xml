@@ -1,0 +1,397 @@
+<audit_folder_structure_guide>
+  <overview>
+    Comprehensive guide for creating and managing organized audit folder structures.
+    Every audit must create a well-organized folder hierarchy to ensure all artifacts
+    are properly stored, easily accessible, and can coexist with other audits.
+  </overview>
+
+  <standard_structure>
+    <description>
+      The standard audit folder structure organizes all audit outputs into logical categories.
+      This structure is created automatically at the start of each audit.
+    </description>
+    <hierarchy>
+      <![CDATA[
+audits/
+└── [ObjectStoreName]_[YYYY-MM-DD]/
+    ├── audit_metadata.json          # Audit context and tracking
+    ├── README.md                     # Navigation guide and overview
+    │
+    ├── reports/                      # Final reports for stakeholders
+    │   ├── Repository_Audit_Report.md
+    │   └── Executive_Summary.md
+    │
+    ├── data/                         # Raw data and exports
+    │   ├── class_inventory.csv
+    │   ├── property_matrix.csv
+    │   ├── document_counts.csv
+    │   └── integration_points.json
+    │
+    ├── analysis/                     # Detailed analysis by area
+    │   ├── class_analysis.md
+    │   ├── property_analysis.md
+    │   └── folder_analysis.md
+    │
+    └── recommendations/              # Actionable recommendations
+        ├── consolidation_plans.md
+        ├── cleanup_actions.md
+        └── implementation_roadmap.md
+      ]]>
+    </hierarchy>
+  </standard_structure>
+
+  <folder_purposes>
+    <folder name="audits">
+      <purpose>Root folder for all repository audits</purpose>
+      <location>Project root directory</location>
+      <contents>Subfolders for each audit, named by Object Store and date</contents>
+    </folder>
+
+    <folder name="[ObjectStoreName]_[YYYY-MM-DD]">
+      <purpose>Container for a specific audit</purpose>
+      <naming>
+        - ObjectStoreName: Name of the audited Object Store (e.g., "OS1", "ProductionOS")
+        - YYYY-MM-DD: Audit date in ISO format (e.g., "2026-05-18")
+        - Example: "OS1_2026-05-18"
+      </naming>
+      <contents>All artifacts for this specific audit</contents>
+      <benefits>
+        - Easy identification of which Object Store was audited
+        - Date stamp enables version tracking
+        - Multiple audits can coexist without conflicts
+        - Clear separation between different audit runs
+      </benefits>
+    </folder>
+
+    <folder name="reports">
+      <purpose>Final reports for stakeholders and management</purpose>
+      <contents>
+        - Repository_Audit_Report.md: Comprehensive detailed report
+        - Executive_Summary.md: High-level summary for executives
+      </contents>
+      <audience>Business stakeholders, management, decision makers</audience>
+      <characteristics>
+        - Polished, presentation-ready documents
+        - Focus on findings and recommendations
+        - Minimal technical jargon
+        - Clear action items
+      </characteristics>
+    </folder>
+
+    <folder name="data">
+      <purpose>Raw data exports and structured data files</purpose>
+      <contents>
+        - class_inventory.csv: Complete class list with statistics
+        - property_matrix.csv: Property usage across classes
+        - document_counts.csv: Document counts per class
+        - integration_points.json: Integration property mapping
+      </contents>
+      <audience>Data analysts, technical teams, reporting tools</audience>
+      <characteristics>
+        - Machine-readable formats (CSV, JSON)
+        - Structured data for analysis
+        - Can be imported into spreadsheets or databases
+        - Supports custom reporting and visualization
+      </characteristics>
+    </folder>
+
+    <folder name="analysis">
+      <purpose>Detailed technical analysis by audit area</purpose>
+      <contents>
+        - class_analysis.md: In-depth class findings and patterns
+        - property_analysis.md: Property usage, issues, and optimization
+        - folder_analysis.md: Folder structure and organization assessment
+      </contents>
+      <audience>Technical teams, architects, developers</audience>
+      <characteristics>
+        - Technical depth and detail
+        - Specific examples and evidence
+        - Analysis methodology explained
+        - Technical recommendations
+      </characteristics>
+    </folder>
+
+    <folder name="recommendations">
+      <purpose>Actionable recommendations and implementation plans</purpose>
+      <contents>
+        - consolidation_plans.md: Detailed class consolidation strategies
+        - cleanup_actions.md: Step-by-step cleanup tasks
+        - implementation_roadmap.md: Phased implementation plan
+      </contents>
+      <audience>Project managers, implementation teams, change managers</audience>
+      <characteristics>
+        - Action-oriented content
+        - Prioritized recommendations
+        - Effort estimates
+        - Expected benefits
+        - Implementation steps
+      </characteristics>
+    </folder>
+  </folder_purposes>
+
+  <file_specifications>
+    <file name="audit_metadata.json">
+      <purpose>Track audit context, status, and metadata</purpose>
+      <location>Root of audit folder</location>
+      <format>JSON</format>
+      <required_fields>
+        <field name="object_store">Name of audited Object Store</field>
+        <field name="audit_date">ISO 8601 date/time of audit start</field>
+        <field name="audit_type">Type: "full", "focused", "class_only", etc.</field>
+        <field name="auditor">Who performed the audit</field>
+        <field name="scope">Description of audit scope</field>
+        <field name="status">Current status: "in_progress", "completed"</field>
+      </required_fields>
+      <optional_fields>
+        <field name="completion_date">When audit was completed</field>
+        <field name="statistics">Summary statistics</field>
+        <field name="artifacts">List of generated files</field>
+        <field name="notes">Additional context or notes</field>
+      </optional_fields>
+      <example>
+        <![CDATA[
+{
+  "object_store": "OS1",
+  "audit_date": "2026-05-18T18:00:00Z",
+  "audit_type": "full",
+  "auditor": "Bob Repository Auditor",
+  "scope": "Comprehensive repository audit covering all aspects",
+  "status": "completed",
+  "completion_date": "2026-05-18T19:30:00Z",
+  "statistics": {
+    "total_classes": 91,
+    "total_properties": 450,
+    "total_documents": 5000,
+    "high_priority_issues": 5,
+    "medium_priority_issues": 12,
+    "low_priority_issues": 8
+  },
+  "artifacts": [
+    "reports/Repository_Audit_Report.md",
+    "reports/Executive_Summary.md",
+    "data/class_inventory.csv",
+    "data/property_matrix.csv",
+    "analysis/class_analysis.md",
+    "recommendations/consolidation_plans.md"
+  ]
+}
+        ]]>
+      </example>
+    </file>
+
+    <file name="README.md">
+      <purpose>Navigation guide and audit overview</purpose>
+      <location>Root of audit folder</location>
+      <format>Markdown</format>
+      <contents>
+        - Audit overview and objectives
+        - Quick links to all reports and artifacts
+        - Summary of key findings
+        - Navigation guide to folder structure
+        - How to use the audit results
+      </contents>
+      <benefits>
+        - Serves as entry point for audit results
+        - Provides context for all artifacts
+        - Makes navigation easy for new users
+        - Documents audit purpose and scope
+      </benefits>
+    </file>
+  </file_specifications>
+
+  <creation_workflow>
+    <step number="1">
+      <action>Determine Object Store name</action>
+      <details>
+        - Extract from MCP server configuration if available
+        - Ask user if not determinable
+        - Use clear, descriptive name (e.g., "OS1", "ProductionOS", "TestEnvironment")
+      </details>
+    </step>
+
+    <step number="2">
+      <action>Generate folder name with date</action>
+      <details>
+        - Format: [ObjectStoreName]_[YYYY-MM-DD]
+        - Use current date in ISO format
+        - Example: "OS1_2026-05-18"
+      </details>
+    </step>
+
+    <step number="3">
+      <action>Create folder structure</action>
+      <command>
+        <![CDATA[
+mkdir -p audits/[ObjectStoreName]_[DATE]/{reports,data,analysis,recommendations}
+        ]]>
+      </command>
+      <tool>execute_command</tool>
+      <verification>Confirm all folders created successfully</verification>
+    </step>
+
+    <step number="4">
+      <action>Create audit_metadata.json</action>
+      <details>
+        - Set initial status to "in_progress"
+        - Include audit date, type, scope
+        - Will be updated on completion
+      </details>
+      <tool>write_to_file</tool>
+    </step>
+
+    <step number="5">
+      <action>Create README.md</action>
+      <details>
+        - Add audit overview
+        - Include folder structure explanation
+        - Add placeholders for key findings
+        - Will be updated as audit progresses
+      </details>
+      <tool>write_to_file</tool>
+    </step>
+
+    <step number="6">
+      <action>Generate artifacts in appropriate folders</action>
+      <details>
+        - Reports go in reports/
+        - Data exports go in data/
+        - Analysis documents go in analysis/
+        - Recommendations go in recommendations/
+      </details>
+      <tool>write_to_file (for each artifact)</tool>
+    </step>
+
+    <step number="7">
+      <action>Update metadata on completion</action>
+      <details>
+        - Set status to "completed"
+        - Add completion_date
+        - Add summary statistics
+        - List all generated artifacts
+      </details>
+      <tool>write_to_file</tool>
+    </step>
+  </creation_workflow>
+
+  <best_practices>
+    <practice>
+      <title>Always Create Structure First</title>
+      <description>
+        Create the complete folder structure at the start of the audit, before generating
+        any content. This ensures all artifacts have a proper home.
+      </description>
+    </practice>
+
+    <practice>
+      <title>Use Consistent Naming</title>
+      <description>
+        Always use the same file names across different audits. This makes it easy to
+        compare audits and find specific artifacts.
+      </description>
+    </practice>
+
+    <practice>
+      <title>Update Metadata Progressively</title>
+      <description>
+        Update audit_metadata.json as the audit progresses, not just at the end.
+        This provides status tracking and recovery if interrupted.
+      </description>
+    </practice>
+
+    <practice>
+      <title>Generate README Early</title>
+      <description>
+        Create README.md early in the audit process and update it as findings emerge.
+        This provides a living document that guides users through the audit.
+      </description>
+    </practice>
+
+    <practice>
+      <title>Separate Concerns</title>
+      <description>
+        Keep different types of artifacts in their designated folders. Don't mix
+        reports with data files or analysis with recommendations.
+      </description>
+    </practice>
+
+    <practice>
+      <title>Include Examples in Data Files</title>
+      <description>
+        When generating CSV files, include header rows and a few example rows to
+        make the data structure clear.
+      </description>
+    </practice>
+  </best_practices>
+
+  <multiple_audits>
+    <scenario name="same_object_store">
+      <description>Multiple audits of the same Object Store over time</description>
+      <structure>
+        <![CDATA[
+audits/
+├── OS1_2026-01-15/
+├── OS1_2026-04-20/
+└── OS1_2026-05-18/
+        ]]>
+      </structure>
+      <benefits>
+        - Track changes over time
+        - Compare before/after improvements
+        - Monitor progress on recommendations
+        - Identify trends and patterns
+      </benefits>
+    </scenario>
+
+    <scenario name="multiple_object_stores">
+      <description>Audits of different Object Stores</description>
+      <structure>
+        <![CDATA[
+audits/
+├── OS1_2026-05-18/
+├── ProductionOS_2026-05-18/
+└── TestEnvironment_2026-05-18/
+        ]]>
+      </structure>
+      <benefits>
+        - Compare different environments
+        - Identify common issues across stores
+        - Share best practices
+        - Standardize approaches
+      </benefits>
+    </scenario>
+  </multiple_audits>
+
+  <troubleshooting>
+    <issue>
+      <problem>Folder creation fails</problem>
+      <cause>Insufficient permissions or invalid path</cause>
+      <solution>
+        - Verify write permissions in project directory
+        - Check for invalid characters in Object Store name
+        - Use execute_command with proper error handling
+      </solution>
+    </issue>
+
+    <issue>
+      <problem>Object Store name unknown</problem>
+      <cause>Not specified in MCP configuration</cause>
+      <solution>
+        - Ask user for Object Store name
+        - Provide suggestions based on common names
+        - Use generic name like "ObjectStore" if unavailable
+      </solution>
+    </issue>
+
+    <issue>
+      <problem>Audit folder already exists</problem>
+      <cause>Multiple audits on same date</cause>
+      <solution>
+        - Add time component: [ObjectStore]_[YYYY-MM-DD]_[HHMM]
+        - Ask user if they want to overwrite or create new
+        - Suggest reviewing existing audit first
+      </solution>
+    </issue>
+  </troubleshooting>
+</audit_folder_structure_guide>
+
+<!-- Made with Bob -->

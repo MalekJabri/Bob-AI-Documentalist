@@ -1,0 +1,415 @@
+<focused_audit_capabilities>
+  <overview>
+    The repository auditor mode supports both comprehensive audits and focused capabilities
+    that can be invoked independently. These focused capabilities allow users to request
+    specific analysis without performing a full audit, providing flexibility and efficiency.
+  </overview>
+
+  <capability_recognition>
+    <principle>
+      When a user requests a specific type of analysis rather than a full audit,
+      recognize the focused capability and execute only the relevant phases.
+    </principle>
+    <examples>
+      <example>
+        User says: "Analyze the document classes in this repository"
+        → Execute: Class Analysis capability only
+      </example>
+      <example>
+        User says: "Create an audit plan for this Object Store"
+        → Execute: Audit Planning capability only
+      </example>
+      <example>
+        User says: "Give me a quick assessment of the repository"
+        → Execute: Quick Assessment capability only
+      </example>
+    </examples>
+  </capability_recognition>
+
+  <capabilities>
+    <capability name="create-audit-plan">
+      <title>Create Audit Plan</title>
+      <description>
+        Creates a comprehensive audit plan document before beginning any audit work.
+        Includes objectives, scope, phases, tasks, deliverables, and timeline.
+      </description>
+      <when_to_use>
+        - User explicitly asks to "create a plan" or "plan an audit"
+        - User wants to review scope before committing to full audit
+        - User needs approval before beginning audit work
+        - User wants to understand what an audit would entail
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>create an audit plan</phrase>
+        <phrase>plan an audit</phrase>
+        <phrase>what would an audit involve</phrase>
+        <phrase>create a plan for auditing</phrase>
+        <phrase>plan the repository audit</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Identify Object Store name</step>
+        <step>2. Confirm audit objectives and scope with user</step>
+        <step>3. Create audit folder structure</step>
+        <step>4. Identify root classes to analyze</step>
+        <step>5. Create comprehensive Audit_Plan.md document</step>
+        <step>6. Create audit_metadata.json</step>
+        <step>7. Review and confirm plan with user</step>
+        <step>8. Initialize audit tracking (optional)</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>Audit_Plan.md - Comprehensive audit plan</deliverable>
+        <deliverable>audit_metadata.json - Audit metadata</deliverable>
+        <deliverable>Folder structure created and ready</deliverable>
+      </deliverables>
+      <estimated_duration>15-20 minutes</estimated_duration>
+    </capability>
+
+    <capability name="analyze-classes">
+      <title>Analyze Document Classes</title>
+      <description>
+        Performs comprehensive analysis of document classes including discovery,
+        property analysis, document counts, and categorization. Identifies
+        consolidation opportunities and generates class inventory.
+      </description>
+      <when_to_use>
+        - User specifically asks about document classes
+        - User wants to understand class structure without full audit
+        - User needs class consolidation recommendations
+        - User wants to identify duplicate or unused classes
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>analyze document classes</phrase>
+        <phrase>analyze the classes</phrase>
+        <phrase>what classes exist</phrase>
+        <phrase>show me the document classes</phrase>
+        <phrase>class analysis</phrase>
+        <phrase>identify duplicate classes</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Create focused audit folder (if needed)</step>
+        <step>2. List all root classes</step>
+        <step>3. Discover all document classes</step>
+        <step>4. For each class: get properties, count documents</step>
+        <step>5. Categorize classes (Active, Specialized, Legacy, Unused)</step>
+        <step>6. Identify naming patterns and duplicates</step>
+        <step>7. Generate class_analysis.md report</step>
+        <step>8. Generate class_inventory.csv data file</step>
+        <step>9. Create consolidation recommendations</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>class_analysis.md - Detailed class findings</deliverable>
+        <deliverable>class_inventory.csv - Complete class list</deliverable>
+        <deliverable>consolidation_plans.md - Consolidation recommendations</deliverable>
+      </deliverables>
+      <estimated_duration>45-60 minutes</estimated_duration>
+    </capability>
+
+    <capability name="analyze-properties">
+      <title>Analyze Properties</title>
+      <description>
+        Analyzes property usage across classes, identifies optimization opportunities,
+        assesses searchability, and documents integration properties. Generates
+        property matrix and recommendations.
+      </description>
+      <when_to_use>
+        - User specifically asks about properties
+        - User wants property optimization recommendations
+        - User needs to understand property usage patterns
+        - User wants to identify unused properties
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>analyze properties</phrase>
+        <phrase>property analysis</phrase>
+        <phrase>what properties are used</phrase>
+        <phrase>show me the properties</phrase>
+        <phrase>property usage</phrase>
+        <phrase>unused properties</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Create focused audit folder (if needed)</step>
+        <step>2. Get class list (quick discovery)</step>
+        <step>3. For each class: get all property descriptions</step>
+        <step>4. Categorize properties (System, Business, Integration)</step>
+        <step>5. Analyze property characteristics</step>
+        <step>6. Identify searchable properties</step>
+        <step>7. Look for naming inconsistencies and duplicates</step>
+        <step>8. Identify unused or underutilized properties</step>
+        <step>9. Generate property_analysis.md report</step>
+        <step>10. Generate property_matrix.csv data file</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>property_analysis.md - Property usage analysis</deliverable>
+        <deliverable>property_matrix.csv - Property usage matrix</deliverable>
+        <deliverable>Property optimization recommendations</deliverable>
+      </deliverables>
+      <estimated_duration>30-45 minutes</estimated_duration>
+    </capability>
+
+    <capability name="analyze-folder-structure">
+      <title>Analyze Folder Structure</title>
+      <description>
+        Examines folder hierarchy, naming conventions, organization patterns,
+        and identifies empty or orphaned folders. Generates folder structure
+        assessment and recommendations.
+      </description>
+      <when_to_use>
+        - User specifically asks about folder structure
+        - User wants to understand folder organization
+        - User needs folder naming convention assessment
+        - User wants to identify empty folders
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>analyze folder structure</phrase>
+        <phrase>folder analysis</phrase>
+        <phrase>how are folders organized</phrase>
+        <phrase>show me the folder structure</phrase>
+        <phrase>folder hierarchy</phrase>
+        <phrase>empty folders</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Create focused audit folder (if needed)</step>
+        <step>2. Discover root folders</step>
+        <step>3. Analyze folder hierarchy and depth</step>
+        <step>4. Document folder naming conventions</step>
+        <step>5. Sample folder contents</step>
+        <step>6. Identify empty or orphaned folders</step>
+        <step>7. Generate folder_analysis.md report</step>
+        <step>8. Create folder organization recommendations</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>folder_analysis.md - Folder structure assessment</deliverable>
+        <deliverable>Folder organization recommendations</deliverable>
+      </deliverables>
+      <estimated_duration>20-30 minutes</estimated_duration>
+    </capability>
+
+    <capability name="generate-audit-report">
+      <title>Generate Audit Report</title>
+      <description>
+        Generates comprehensive audit reports including executive summary,
+        detailed findings, data artifacts (CSV files), analysis documents,
+        and actionable recommendations based on previously collected audit data.
+      </description>
+      <when_to_use>
+        - User has completed analysis and needs reports
+        - User asks to "generate the report" or "create the audit report"
+        - Analysis phases are complete and deliverables are needed
+        - User wants to compile findings into formal reports
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>generate the audit report</phrase>
+        <phrase>create the report</phrase>
+        <phrase>compile the findings</phrase>
+        <phrase>generate reports</phrase>
+        <phrase>create audit deliverables</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Verify audit data is available</step>
+        <step>2. Generate Executive_Summary.md</step>
+        <step>3. Create Repository_Audit_Report.md</step>
+        <step>4. Generate data artifacts (CSV files)</step>
+        <step>5. Create detailed analysis documents</step>
+        <step>6. Develop actionable recommendations</step>
+        <step>7. Create implementation roadmap</step>
+        <step>8. Update audit metadata</step>
+        <step>9. Create README.md navigation guide</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>Executive_Summary.md</deliverable>
+        <deliverable>Repository_Audit_Report.md</deliverable>
+        <deliverable>All data files (CSV/JSON)</deliverable>
+        <deliverable>All analysis documents</deliverable>
+        <deliverable>All recommendation documents</deliverable>
+        <deliverable>README.md</deliverable>
+      </deliverables>
+      <estimated_duration>30-45 minutes</estimated_duration>
+    </capability>
+
+    <capability name="quick-assessment">
+      <title>Quick Repository Assessment</title>
+      <description>
+        Performs a rapid assessment of repository state including class count,
+        high-level property overview, and key findings summary. Provides quick
+        insights without deep analysis.
+      </description>
+      <when_to_use>
+        - User needs quick overview without full audit
+        - User asks for "quick assessment" or "quick look"
+        - Time is limited but insights are needed
+        - Initial assessment before deciding on full audit
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>quick assessment</phrase>
+        <phrase>quick look</phrase>
+        <phrase>quick overview</phrase>
+        <phrase>rapid assessment</phrase>
+        <phrase>give me a quick summary</phrase>
+        <phrase>what's the current state</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. List root classes</step>
+        <step>2. Count document classes (quick discovery)</step>
+        <step>3. Sample 5-10 classes for property overview</step>
+        <step>4. Get document counts for major classes</step>
+        <step>5. Identify obvious issues (duplicates, test classes)</step>
+        <step>6. Generate Quick_Assessment.md report</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>Quick_Assessment.md - Brief assessment report</deliverable>
+        <deliverable>High-level findings and recommendations</deliverable>
+      </deliverables>
+      <estimated_duration>15-20 minutes</estimated_duration>
+    </capability>
+
+    <capability name="analyze-integrations">
+      <title>Analyze Integration Points</title>
+      <description>
+        Identifies and documents all integration points with external systems
+        including SAP, Salesforce, DocuFlow, and custom integrations. Analyzes
+        integration property patterns and usage.
+      </description>
+      <when_to_use>
+        - User specifically asks about integrations
+        - User needs to understand external system connections
+        - User wants integration property documentation
+        - Migration planning requires integration mapping
+      </when_to_use>
+      <trigger_phrases>
+        <phrase>analyze integrations</phrase>
+        <phrase>integration points</phrase>
+        <phrase>what integrations exist</phrase>
+        <phrase>SAP integration</phrase>
+        <phrase>Salesforce integration</phrase>
+        <phrase>external systems</phrase>
+      </trigger_phrases>
+      <execution_steps>
+        <step>1. Create focused audit folder (if needed)</step>
+        <step>2. Get class list with properties</step>
+        <step>3. Identify integration properties (SAP*, SF*, etc.)</step>
+        <step>4. Document which classes use each integration</step>
+        <step>5. Analyze integration property patterns</step>
+        <step>6. Assess integration usage and status</step>
+        <step>7. Generate integration_assessment.md report</step>
+        <step>8. Generate integration_points.json data file</step>
+      </execution_steps>
+      <deliverables>
+        <deliverable>integration_assessment.md - Integration analysis</deliverable>
+        <deliverable>integration_points.json - Integration mapping</deliverable>
+        <deliverable>Integration recommendations</deliverable>
+      </deliverables>
+      <estimated_duration>15-25 minutes</estimated_duration>
+    </capability>
+  </capabilities>
+
+  <execution_guidelines>
+    <guideline>
+      <title>Recognize Focused Requests</title>
+      <description>
+        When a user's request matches a focused capability, execute only that
+        capability rather than a full audit. Look for trigger phrases and
+        specific requests.
+      </description>
+    </guideline>
+
+    <guideline>
+      <title>Create Appropriate Folder Structure</title>
+      <description>
+        For focused capabilities, create a simplified folder structure:
+        - audits/[ObjectStore]_[DATE]_[capability-name]/
+        - Include only relevant subfolders (e.g., just analysis/ for class analysis)
+      </description>
+    </guideline>
+
+    <guideline>
+      <title>Confirm Scope</title>
+      <description>
+        Before executing a focused capability, confirm with the user that this
+        is what they want. Offer the option to expand to a full audit if appropriate.
+      </description>
+      <example>
+        "I'll perform a focused analysis of document classes. This will include
+        class discovery, property analysis, and consolidation recommendations.
+        Would you like me to proceed with just class analysis, or would you prefer
+        a full repository audit?"
+      </example>
+    </guideline>
+
+    <guideline>
+      <title>Provide Context</title>
+      <description>
+        When executing a focused capability, explain what will and won't be covered.
+        Set clear expectations about the scope and deliverables.
+      </description>
+    </guideline>
+
+    <guideline>
+      <title>Offer Next Steps</title>
+      <description>
+        After completing a focused capability, suggest logical next steps or
+        related capabilities that might be useful.
+      </description>
+      <example>
+        "Class analysis complete. Would you like me to:
+        1. Analyze properties across these classes
+        2. Perform a full repository audit
+        3. Generate detailed consolidation plans"
+      </example>
+    </guideline>
+  </execution_guidelines>
+
+  <combination_scenarios>
+    <scenario>
+      <title>Sequential Focused Capabilities</title>
+      <description>
+        User may request multiple focused capabilities in sequence. Each should
+        build on previous work and share the same audit folder.
+      </description>
+      <example>
+        1. User: "Analyze document classes"
+        2. Complete class analysis
+        3. User: "Now analyze the properties"
+        4. Use same audit folder, add property analysis
+        5. User: "Generate the report"
+        6. Compile all findings into comprehensive report
+      </example>
+    </scenario>
+
+    <scenario>
+      <title>Upgrade to Full Audit</title>
+      <description>
+        User may start with focused capability then decide to expand to full audit.
+        Preserve existing work and continue with remaining phases.
+      </description>
+      <example>
+        1. User: "Quick assessment please"
+        2. Complete quick assessment
+        3. User: "This looks concerning, let's do a full audit"
+        4. Create full audit plan, incorporate quick assessment findings
+        5. Continue with remaining audit phases
+      </example>
+    </scenario>
+  </combination_scenarios>
+
+  <best_practices>
+    <practice>
+      Always confirm the focused scope before beginning execution
+    </practice>
+    <practice>
+      Create appropriate folder structure for the capability
+    </practice>
+    <practice>
+      Provide clear deliverables specific to the capability
+    </practice>
+    <practice>
+      Suggest related capabilities or next steps after completion
+    </practice>
+    <practice>
+      Allow easy transition to full audit if user requests
+    </practice>
+    <practice>
+      Reuse existing audit folder if building on previous work
+    </practice>
+  </best_practices>
+</focused_audit_capabilities>
+
+<!-- Made with Bob -->

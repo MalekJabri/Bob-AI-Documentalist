@@ -1,0 +1,242 @@
+
+Transcription. Utilisez les touches de direction pour naviguer entre les entrées de transcription. Sélectionnez une entrée pour accéder au média jusqu’à l’heure de l’entrée.
+
+
+Rechercher
+
+Le contenu généré par l’IA peut être incorrect
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+0 minutes 3 secondes0:03
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 3 secondes
+Today, I'll head over to you.
+SA
+
+Sankar, A. (Andre)
+0 minutes 8 secondes0:08
+Sankar, A. (Andre) 0 minutes 8 secondes
+Can you hear me?
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+0 minutes 10 secondes0:10
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 10 secondes
+Yep, yes.
+SA
+
+Sankar, A. (Andre)
+0 minutes 12 secondes0:12
+Sankar, A. (Andre) 0 minutes 12 secondes
+Yeah, I just, so apologies, I need to step away now, but I just wanted to also set some of the outcomes that I am looking for from this session. So Mafika, everything that you said, if I can just ask, please do not preach to us any sales speak. I really want to have as an outcome, what's the plan and the way forward for us to introduce this type of technology?
+Sankar, A. (Andre) 0 minutes 36 secondes
+into the bank, because I do feel that there is value to be had. And obviously from a cost perspective, you know, and all of the above, you know, we'll have to work through that. But this at this point in time, let's just keep the conversation very real, very practical, and really
+Sankar, A. (Andre) 0 minutes 55 secondes
+get into the nitty gritties of how this potentially could help us or couldn't help us. Because if something that can't help us, let's just close that chapter and move on to the next thing. I really, I want you guys to be focused and I would like from an outcome perspective when I hear from my NetBank team is that yes, we have a way forward.
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+1 minute 6 secondes1:06
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 6 secondes
+Yeah.
+SA
+
+Sankar, A. (Andre)
+1 minute 15 secondes1:15
+Sankar, A. (Andre) 1 minute 15 secondes
+And this is at a very high level, conceptually, the way we're going to move forward on this. OK. Thanks.
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+1 minute 28 secondes1:28
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 28 secondes
+Cool.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 31 secondes
+So should we start with the questions in the agenda and take them one at a time? Sure.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 43 secondes
+Remember meeting in Ramraj.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 45 secondes
+Okay, I did it.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 47 secondes
+Yeah, so maybe maybe you guys want to have the
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 51 secondes
+Overview of how we use it here first, yeah, and we can get into it, yeah, get into it, yeah, into the content assistant stuff. So, what are the particular questions from your side in regards to usage?
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 6 secondes
+Right.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 8 secondes
+No.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 12 secondes
+From our perspective, so file net, we store all of our client documents, so KYC, know your client, AML, risk documents, all stored in there, as well as all your contracts pertaining to product, services, etc. All right, so that's in the file net space, right? I also want to talk about Seymour because...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 31 secondes
+If I'm gonna have Content Assistant, I need it to work on both my repositories and not just one, right? From A Seymour perspective, we have statements, reports, a lot of your bulk ingestion, batch ingestion of those type of documents, right?
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 47 secondes
+From who in the bank uses it? Almost everyone. Because we, from an ECM perspective, we service all of the clusters. So from a retail banking, business banking, to corporate banking. We take on their onboarding processes, their maintenance processes, their...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 5 secondes
+Operational processes for documentation.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 9 secondes
+And where I'm looking at from a, because we're now on this road towards AI enabling our tech stack, Content Assistant is the one that's going to help me with content itself.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 22 secondes
+I know we talk a lot about AI in how we improve processes, et cetera, et cetera, but for content, it's not that easy. Content assistant is what we can do to help our business use content more efficiently, more effectively.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 39 secondes
+And that's where I want Content Assistant to come in to see if we can try and play in on that level.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 45 secondes
+And I think Mike has a very large...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 49 secondes
+Very tiny document there on our current architecture itself. This is on the phone. It's right. Also, something important to note from our side, we also have...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 3 secondes
+So our primary use case or users love is the SA South African base, but we do have in Namibia, Eswatini, Lesotho, I think we're going into Mozambique. So we have other African countries that we do support from a document management perspective.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 24 secondes
+right? So whatever we do as a solution needs to be able to move across all of them. From an architecture infrastructure perspective, for us to deal with data residency and data segregation, we've created separate object stores for the different countries, but they follow the exact same principles, the exact same patterns, the exact same taxonomy.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 45 secondes
+So exact same security patterns, right? So from a pattern-wise implementation, they're all exactly the same, but just to separate now our data, we've created the separate object stores, but they all look all alike, right? So content assistance, again, should be able to now.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 5 minutes 5 secondes
+Have the separate security of segregations.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 5 minutes 8 secondes
+but still be able to do the same thing.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 5 minutes 11 secondes
+for all of our stakeholders. Yep. Any other specific questions on very high level how we implemented it?
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 5 minutes 22 secondes
+At this stage, not really, because we had already a small discussion yesterday, so we also introduced a little bit about the how you're using today finite from a topology perspective in the class. I know that you so today, in terms of user experience.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 5 minutes 40 secondes
+I know that you are using Navigator. Are you also using some API because there was some question about the API. Can you just explain a little bit what are your, for example, integration point you have today? Integration point. So from a NetBank strategy perspective, we do use Navigator, but Navigator is more from a back office perspective. Okay. All right.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 6 minutes
+We do not give this to our frontline staff, our branch staff. We have other front ends that cater for not just document functions, but basic all of the client functions that a staff would have to give to a client.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 6 minutes 15 secondes
+So documents being part of it. So what we have is a facade over it called ECS. And from an ECS perspective, most of your other front ends connected to ECS. They search, retrieve. ECS has the integration into Seymour, FileNet, and one of our legacy repositories called IBM. So none of our consumers need to care about Seymour.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 6 minutes 37 secondes
+or any of the integration points directly. We facade that to them, they connect to ECS and they connect that way. And this is the reason why I was asking about the APIs.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 6 minutes 50 secondes
+And I know from an IBM perspective, because we want to transition over to GraphQL, for example, as well, right? If because we facade it under ECS, our consumers will not know when we've changed it from GraphQL, from Siemens to GraphQL. The facade should take care of that. So obviously data palette is what I was discussing yesterday.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 7 minutes 10 secondes
+We do have a few consumers that go directly to CMS. We want to try and transition them off that. But we do have use cases for that. But primarily, so you do have some users that will be directly on ICM. We do upload and viewing desktops for them.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 7 minutes 30 secondes
+We've got the guys that consume through ECS itself, and then some that through data power seamless.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 7 minutes 39 secondes
+So, that's covered the integration part. OK, in the recording, that will be a lot more legible. Yeah, phone is sitting there. Yeah, we've got as you see file system, we've got content integrated, content configuration services, content navigate.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 7 minutes 59 secondes
+And the use case for the content federation services is to bring in all the legacy into FileNet. Okay. All the old systems as we decommission those, whether it's a system that's based on spreadsheets or sitting in some Oracle database or some old technology somewhere, we find a way to connect into that. Okay.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 8 minutes 21 secondes
+Bring it in, but then we need to mount into our file system locally, or if it's a remote JDBC connection, ODBC connection, whatever it is. OK, and are you using what content federation for CMOD or are you just directly going through the API anyway? No, we're not using federation for CMOD at all. We are not using...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 8 minutes 42 secondes
+Yeah, OK. Seymour is deployed independently of FileNet, so there's no integration at this point. We're not using Records Manager there, we're not doing any sort of any federation between the two, so it's independent system on its own, so obviously.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 9 minutes 1 seconde
+Content cortex, we'll discuss that. That's another topic that we want to address. Yeah, urgently. Just more or less because we are, this is something that we have discussed with them, is that I know we have a session today on container system and we will need to go deep dive on this one, much perspective question about API and so on.
+
+
+
+Transcription. Utilisez les touches de direction pour naviguer entre les entrées de transcription. Sélectionnez une entrée pour accéder au média jusqu’à l’heure de l’entrée.
+
+
+Rechercher
+
+Le contenu généré par l’IA peut être incorrect
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+0 minutes 3 secondes0:03
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 3 secondes
+Page or more, especially when they get into a 100 pages territory, super valuable, so they found in departments like legal and claims and underwriting, they had huge documents, super valuable.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 18 secondes
+And so, they started in parts of the business where, frankly, there's the most revenue, the most risk, and they started there, and they learned, and then we mentioned like they do some sweep jobs, they do some ad hoc, so they also worked on...
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 38 secondes
+prompt engineering over those two months. But you mentioned like AI moves very quickly. Yeah, they move really, really quickly from getting access to it to going into production with their first department was two months.
+AD
+
+Allister Duimpies
+0 minutes 46 secondes0:46
+Allister Duimpies 0 minutes 46 secondes
+So.
+C
+
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+0 minutes 54 secondes0:54
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 0 minutes 54 secondes
+One thing that have accelerated that is that they have started first using container assistant, even if that's their on-premise fine. They started with our SaaS just to have it quicker, and then when they have done their playground in the meantime, say the infrastructure was ready, they have installed on-premise.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 13 secondes
+Allister, you were gonna say something?
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 1 minute 16 secondes
+Energy turns up.
+AD
+
+Allister Duimpies
+1 minute 17 secondes1:17
+Allister Duimpies 1 minute 17 secondes
+Uh...
+Allister Duimpies 1 minute 18 secondes
+Oh, yeah, maybe you can go before.
+SA
+
+Singh, A. (Ajeet)
+1 minute 20 secondes1:20
+Singh, A. (Ajeet) 1 minute 20 secondes
+Yeah, Linda has asked brilliant questions. Of course, we want that answered. But I just also want to bring down another context that we are also running our journey to migrate from traditional to CP4VA. So all these setups, let's say.
+Singh, A. (Ajeet) 1 minute 39 secondes
+gonna happen, it's gonna happen against traditional. How much?
+Singh, A. (Ajeet) 1 minute 45 secondes
+It's going to be as you just pointed out from CP4BA to whatever we put it. I mean, how easy or difficult that can be if we if you can just think about that and give us our view on top of Linda question that also helps that yes, whatever we do.
+Singh, A. (Ajeet) 2 minutes 3 secondes
+We're not gonna be redoing as a part of CP4BA, you know what I mean?
+C
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+2 minutes 8 secondes2:08
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 8 secondes
+Yeah, yeah.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 10 secondes
+And the first thing that I can confirm is that whatever you do on is one-to-one on CP. There's nothing to do, so it means that if you have enabled on traditional when you move to the to the to the to the container, there is no maybe different endpoint.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 29 secondes
+To change, but other than that, nothing to be done, so that's why I also mentioned that we can run in parallel container and traditional, so it means that you have to, so yes, so everything that we mentioned already specific on container system.
+AD
+Allister Duimpies
+2 minutes 37 secondes2:37
+Allister Duimpies 2 minutes 37 secondes
+Yeah.
+C
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+2 minutes 47 secondes2:47
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 2 minutes 47 secondes
+Is a straightforward for for the container and for the CP4B, and where it even make more sense the next week when you have the session about content cortex, there are some containers that are required when when you're going to run content cortex, like the reasoning container or those or those or those aspects, it will even make more sense.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 8 secondes
+to be on the container for that person.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 11 secondes
+So yes, you are covered and it will be even more easier if you're on container.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 3 minutes 19 secondes
+I need to go back to the question. Allister, do you want to first?
+AD
+Allister Duimpies
+3 minutes 19 secondes3:19
+Allister Duimpies 3 minutes 19 secondes
+Yeah.
+Allister Duimpies 3 minutes 22 secondes
+Yeah.
+Allister Duimpies 3 minutes 23 secondes
+That.
+Allister Duimpies 3 minutes 25 secondes
+Yes, it was more an overarching statement. And Ajit, I remember a point you raised, I think June last year, when we had a roadmap update. And you said, I think your words were, this is brilliant. How do we get started? You know, how do we get to this point? And I wanted the overarching statement is basically in addition to us talking about all, you know, the future capabilities and the
+Allister Duimpies 3 minutes 50 secondes
+innovation that we're working towards. I think one key question is what does the next three years look like in terms of any support or technical assistance that the bank needs? And there's multiple vehicles. I think Linda, you mentioned consulting is one, there's expert labs, but there is also partners. I, you know, in a sort of like offline conversation, I did ask
+Allister Duimpies 4 minutes 11 secondes
+you know, what the bank's appetite is in terms of even using partners that are not in South Africa. And maybe Donald Malek, if I can put you on the spot, you know, if you also know worldwide or maybe in the EMEA region, some BPs that we can explore. And maybe this is 1 item I can maybe ask us to have as a
+C
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+4 minutes 24 secondes4:24
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 24 secondes
+The.
+AD
+Allister Duimpies
+4 minutes 31 secondes4:31
+Allister Duimpies 4 minutes 31 secondes
+as a supporting exercise. What does the next three years look like in terms of what are the projects and the help that the bank needs? Because it might be a multitude of assistance. There's a lot of things that, for instance, Malek is doing today and Donald in country today. But then there is also other vehicles through Expert Labs called Expertise Connect, which is staff augmentation, where they can have somebody with you
+C
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12]
+4 minutes 34 secondes4:34
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 34 secondes
+Mm.
+Conference Room - 135 Rivonia Road - Block H - (Room 11) [12] 4 minutes 48 secondes
+Yeah.
+AD
+Allister Duimpies
+4 minutes 55 secondes4:55
+Allister Duimpies 4 minutes 55 secondes
+for the next three years as part of your team. These can be a combination of, you know, just SMEs or architects, depending on what that is. But if the expertise connect staff augmentation is not an option, then partnering with a partner outside or even consulting. But the exercise is what is, what is it from the bank side, what help would you need over the next three years? And why I'm marking it as three years is.
+Allister Duimpies 5 minutes 19 secondes
+These expert labs hours can even be added to the ELA and it can be consumed over the next three years. So it's the technology that we're looking at, but the help as a separate item that maybe it will come more from the bank to say, what help do you need? And then from there onwards.

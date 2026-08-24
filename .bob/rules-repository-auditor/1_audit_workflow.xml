@@ -1,0 +1,939 @@
+<repository_audit_workflow>
+  <overview>
+    This workflow guides you through performing a comprehensive audit of an IBM FileNet Object Store.
+    The audit systematically analyzes document classes, properties, folder structures, document types,
+    and usage patterns to provide actionable insights for repository optimization and governance.
+  </overview>
+
+  <audit_phases>
+    <phase number="1" name="planning">
+      <title>Audit Planning and Scope Definition</title>
+      <description>
+        Create a comprehensive audit plan before beginning the actual audit work.
+        This ensures systematic coverage and clear expectations.
+      </description>
+      <steps>
+         <step number="1">
+          <action>Identify Object Store name from MCP configuration</action>
+          <details>
+            CRITICAL: Always read .bob/mcp.json to extract the Object Store name from the
+            content-repository MCP server configuration.
+            
+            Look for: mcpServers.content-repository.env.OBJECT_STORE
+            
+            This ensures you use the actual configured Object Store name rather than
+            hardcoded values. The Object Store name will be used to create the audit
+            folder structure: audits/[ObjectStoreName]_[DATE]/
+            
+            If the MCP configuration file doesn't exist or doesn't contain the Object Store,
+            then ask the user to provide it.
+          </details>
+          <tool>read_file (.bob/mcp.json)</tool>
+          <tool>ask_followup_question (only if Object Store not found in config)</tool>
+        </step>
+
+        <step number="2">
+          <action>Confirm audit objectives and scope with user</action>
+          <details>
+            Ask the user to clarify what aspects they want to focus on:
+            - Full comprehensive audit (all aspects)
+            - Document class analysis only
+            - Property usage analysis
+            - Folder structure review
+            - Specific class or area deep-dive
+            
+            This determines which phases will be executed and in what depth.
+          </details>
+          <tool>ask_followup_question</tool>
+        </step>
+
+        <step number="3">
+          <action>Create organized audit folder structure</action>
+          <details>
+            Create a structured folder hierarchy for audit outputs:
+            
+            audits/
+            └── [ObjectStoreName]_[DATE]/
+                ├── reports/
+                │   ├── Repository_Audit_Report.md
+                │   └── Executive_Summary.md
+                ├── data/
+                │   ├── class_inventory.csv
+                │   ├── property_matrix.csv
+                │   └── document_counts.csv
+                ├── analysis/
+                │   ├── class_analysis.md
+                │   ├── property_analysis.md
+                │   └── folder_analysis.md
+                └── recommendations/
+                    ├── consolidation_plans.md
+                    ├── cleanup_actions.md
+                    └── implementation_roadmap.md
+            
+            This structure:
+            - Organizes all audit artifacts in one place
+            - Separates reports, data, analysis, and recommendations
+            - Uses Object Store name for easy identification
+            - Includes date for version tracking
+            - Allows multiple audits to coexist
+          </details>
+          <tool>execute_command (mkdir -p)</tool>
+        </step>
+
+        <step number="4">
+          <action>Identify root classes to analyze</action>
+          <details>
+            Use list_root_classes to get all available root class types.
+            Typically focus on Document and Folder classes for most audits.
+          </details>
+          <tool>use_mcp_tool (list_root_classes)</tool>
+        </step>
+
+        <step number="5">
+          <action>Create comprehensive audit plan document</action>
+          <details>
+            Create Audit_Plan.md in the audit folder root with:
+            
+            1. Audit Overview
+               - Object Store name
+               - Audit date and auditor
+               - Audit type (full/focused)
+               - Estimated duration
+            
+            2. Audit Objectives
+               - Primary goals
+               - Success criteria
+               - Key questions to answer
+            
+            3. Audit Scope
+               - Areas to be covered (classes, properties, folders, etc.)
+               - Areas explicitly excluded
+               - Depth of analysis for each area
+            
+            4. Audit Phases and Tasks
+               - Phase 1: Class Discovery
+                 * List all root classes
+                 * Discover all document classes
+                 * Get property descriptions for each class
+                 * Count documents per class
+               - Phase 2: Property Analysis
+                 * Categorize properties by type
+                 * Analyze property characteristics
+                 * Identify optimization opportunities
+                 * Assess searchable properties
+               - Phase 3: Folder Structure Analysis
+                 * Discover root folders
+                 * Analyze hierarchy depth
+                 * Assess organization patterns
+               - Phase 4: Document Type Analysis
+                 * Identify document type patterns
+                 * Sample document content
+                 * Assess version management
+               - Phase 5: Integration Assessment
+                 * Identify integration properties
+                 * Document integration patterns
+               - Phase 6: Report Generation
+                 * Generate executive summary
+                 * Create comprehensive report
+                 * Generate data artifacts
+                 * Create recommendations
+            
+            5. Expected Deliverables
+               - List of all reports to be generated
+               - List of all data files to be created
+               - List of all analysis documents
+               - List of all recommendation documents
+            
+            6. Timeline and Milestones
+               - Estimated time for each phase
+               - Key checkpoints
+            
+            This plan serves as a roadmap for the entire audit and can be
+            referenced throughout the process to ensure nothing is missed.
+          </details>
+          <tool>write_to_file</tool>
+          <importance>CRITICAL - This plan must be created before proceeding with the audit</importance>
+        </step>
+
+        <step number="6">
+          <action>Create audit metadata file</action>
+          <details>
+            Create an audit_metadata.json file in the audit folder root:
+            {
+              "object_store": "[ObjectStoreName]",
+              "audit_date": "[ISO Date]",
+              "audit_type": "full|focused",
+              "auditor": "Bob Repository Auditor",
+              "scope": "[Description of audit scope]",
+              "status": "in_progress"
+            }
+            
+            This metadata helps track audit history and context.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="7">
+          <action>Review and confirm plan with user</action>
+          <details>
+            Present the audit plan to the user and confirm:
+            - The scope is correct
+            - The phases are appropriate
+            - The timeline is acceptable
+            - Any adjustments needed
+            
+            This ensures alignment before beginning the actual audit work.
+          </details>
+          <tool>ask_followup_question</tool>
+        </step>
+
+        <step number="8">
+          <action>Initialize audit tracking</action>
+          <details>
+            Create a todo list using update_todo_list with all major tasks from the plan.
+            This provides progress tracking throughout the audit.
+            
+            Example tasks:
+            - [ ] Complete class discovery and analysis
+            - [ ] Analyze property usage and patterns
+            - [ ] Assess folder structure
+            - [ ] Analyze document types and content
+            - [ ] Document integration points
+            - [ ] Generate comprehensive audit report
+            - [ ] Create executive summary
+            - [ ] Generate data artifacts
+            - [ ] Create actionable recommendations
+          </details>
+          <tool>update_todo_list</tool>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="2" name="class_discovery">
+      <title>Document Class Discovery and Analysis</title>
+      <description>
+        Systematically discover and analyze ALL document classes in the repository.
+        CRITICAL: This phase MUST be completed BEFORE any document sampling to ensure
+        no document populations are missed.
+      </description>
+      <critical_requirement>
+        ⚠️ MANDATORY COMPLETE CLASS DISCOVERY ⚠️
+        
+        You MUST discover ALL document classes before proceeding to document analysis.
+        Random sampling without complete class discovery will miss specialized populations.
+        
+        Lessons learned from audit gaps:
+        - Random sampling can miss entire document classes and their populations
+        - Missed custom properties and integration points
+        - Significant underestimation of repository size
+        
+        DO NOT proceed to Phase 5 (Document Analysis) until ALL classes are discovered.
+      </critical_requirement>
+      <steps>
+        <step number="1">
+          <action>Comprehensive class discovery using list_all_classes tool</action>
+          <details>
+            PREFERRED METHOD: Use the list_all_classes tool from classification-content-repository MCP server
+            
+            This tool provides complete class discovery in one operation:
+            - Lists ALL classes for a specified root class (e.g., "Document")
+            - Returns complete class hierarchy
+            - Ensures no classes are missed
+            
+            Usage:
+            1. Call list_all_classes with root_class="Document"
+            2. Document ALL returned classes in inventory
+            3. Repeat for other root classes if needed (Folder, CustomObject, etc.)
+            
+            FALLBACK METHOD (if list_all_classes not available):
+            Use multiple discovery strategies:
+            - Broad keyword search with determine_class
+            - Domain-specific keyword searches
+            - Property-based discovery for integration classes
+            - Validation search for undiscovered classes
+            
+            IMPORTANT: Document ALL classes found, even if they appear to be:
+            - Demo or test classes
+            - Empty classes with zero documents
+            - User-specific classes
+            - Integration-specific classes
+          </details>
+          <tool>use_mcp_tool (list_all_classes) - PREFERRED</tool>
+          <tool>use_mcp_tool (determine_class) - FALLBACK</tool>
+          <validation>
+            After discovery, verify completeness by:
+            1. Counting total classes found
+            2. Searching for documents not matching any discovered class
+            3. Checking for property prefixes that suggest undiscovered classes
+          </validation>
+        </step>
+
+        <step number="2">
+          <action>Analyze each document class comprehensively</action>
+          <details>
+            For EVERY discovered class (no exceptions):
+            1. Get full property descriptions using get_class_property_descriptions
+            2. Document:
+               - Class symbolic name and display name
+               - Parent class in hierarchy
+               - Total properties (system + custom)
+               - Custom property count and names
+               - Property types and cardinality
+               - Integration properties (SAP, Salesforce, Datacap, etc.)
+               - Property naming patterns (prefixes like DCGD_, SAP*, etc.)
+            3. Identify integration points from property names
+            4. Note any specialized or unusual properties
+          </details>
+          <tool>use_mcp_tool (get_class_property_descriptions)</tool>
+          <importance>CRITICAL - Analyze ALL classes, not just "important" ones</importance>
+        </step>
+
+        <step number="3">
+          <action>Count documents in EVERY class</action>
+          <details>
+            Use document_search to count documents in EACH discovered class:
+            - Search with class name and empty search_properties array
+            - Record exact document counts for each class
+            - DO NOT skip classes that appear to be demo/test classes
+            - Document classes with zero documents (for cleanup planning)
+            - Calculate total repository size across all classes
+            
+            Create a complete class inventory table:
+            | Class Name | Document Count | Custom Properties | Integration |
+            |------------|----------------|-------------------|-------------|
+            | Document   | X              | 0                 | None        |
+            | [Class1]   | Y              | N                 | [System]    |
+            | [Class2]   | Z              | M                 | [System]    |
+            
+            This inventory is MANDATORY before proceeding to document sampling.
+          </details>
+          <tool>use_mcp_tool (document_search)</tool>
+          <validation>
+            Sum all document counts and verify against expected repository size.
+            If counts seem low, investigate for missed classes.
+          </validation>
+        </step>
+
+        <step number="4">
+          <action>Identify class relationships and patterns</action>
+          <details>
+            Analyze and document:
+            - Class inheritance hierarchy
+            - Naming convention patterns (prefixes, suffixes)
+            - Duplicate or similar classes
+            - Demo/test classes in production
+            - User-specific classes (usr1_, usr2_, etc.)
+            - Integration-specific classes
+          </details>
+        </step>
+
+        <step number="5">
+          <action>Create class hierarchy Mermaid diagram</action>
+          <details>
+            MANDATORY: Create a classDiagram showing:
+            - All discovered document classes
+            - Inheritance relationships (Document as root)
+            - Key properties for each class (3-5 most important)
+            - Property counts (system vs custom)
+            - Notes for classes with special characteristics
+            
+            Include this diagram in the class analysis document.
+            Use consistent styling: green for well-structured, yellow for review needed, red for issues.
+          </details>
+          <tool>write_to_file (in analysis document with Mermaid code block)</tool>
+          <importance>CRITICAL - Visual representation is required for class analysis</importance>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="3" name="property_analysis">
+      <title>Property Usage and Optimization Analysis</title>
+      <description>
+        Analyze property definitions, usage patterns, and identify optimization opportunities
+      </description>
+      <steps>
+        <step number="1">
+          <action>Categorize properties by type</action>
+          <details>
+            For each class, categorize properties into:
+            - Core system properties (Id, Creator, Dates, Version control)
+            - Business properties (custom metadata)
+            - Integration properties (SAP, Salesforce, external systems)
+            - AI/GenAI properties
+            - Deprecated or unused properties
+          </details>
+        </step>
+
+        <step number="2">
+          <action>Analyze property characteristics</action>
+          <details>
+            Document for each property:
+            - Data type (STRING, INTEGER, DATE, BOOLEAN, OBJECT)
+            - Cardinality (single vs multi-value)
+            - Searchability (searchable vs non-searchable)
+            - Required vs optional
+            - Choice list constraints (if any)
+          </details>
+        </step>
+
+        <step number="3">
+          <action>Identify property optimization opportunities</action>
+          <details>
+            Look for:
+            - Properties with inconsistent naming
+            - Duplicate properties across classes
+            - Properties that could be consolidated
+            - Missing descriptions or documentation
+            - Properties with unclear purpose
+          </details>
+        </step>
+
+        <step number="4">
+          <action>Assess searchable properties</action>
+          <details>
+            Use get_searchable_property_descriptions to identify:
+            - Which properties are indexed for search
+            - Properties that should be searchable but aren't
+            - Over-indexing (too many searchable properties)
+          </details>
+          <tool>use_mcp_tool (get_searchable_property_descriptions)</tool>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="4" name="folder_structure">
+      <title>Folder Structure and Organization Analysis</title>
+      <description>
+        Analyze the folder hierarchy, naming conventions, and organization patterns
+      </description>
+      <steps>
+        <step number="1">
+          <action>Discover root folders</action>
+          <details>
+            Use repository_object_search to find top-level folders:
+            - Search for Folder class
+            - Identify root folder structure
+            - Document folder naming conventions
+          </details>
+          <tool>use_mcp_tool (repository_object_search)</tool>
+        </step>
+
+        <step number="2">
+          <action>Analyze folder hierarchy depth</action>
+          <details>
+            For key folder paths:
+
+        <step number="4">
+          <action>Create folder hierarchy Mermaid diagrams</action>
+          <details>
+            MANDATORY: Create graph TD diagrams showing:
+            - Complete folder hierarchy for each major organization
+            - Folder naming patterns and conventions
+            - Employee folder structures with HR categories
+            - Color-code by organization for easy identification
+            
+            Create separate diagrams for:
+            1. Overall repository folder structure (high-level)
+            2. Detailed view of each organization's folder hierarchy
+            3. Comparison diagram showing naming convention differences
+            
+            Include these diagrams in the folder analysis document.
+          </details>
+          <tool>write_to_file (in analysis document with Mermaid code blocks)</tool>
+          <importance>CRITICAL - Visual folder structure is essential for understanding organization</importance>
+        </step>
+            - Use get_folder_detail to examine folder properties
+            - Use get_folder_documents to see contained documents
+            - Document folder depth and organization patterns
+            - Identify overly deep or flat structures
+          </details>
+          <tool>use_mcp_tool (get_folder_detail, get_folder_documents)</tool>
+        </step>
+
+        <step number="3">
+          <action>Assess folder organization patterns</action>
+          <details>
+            Document:
+            - Folder naming conventions
+            - Organization by department, project, date, etc.
+            - Consistency across different areas
+            - Empty folders or orphaned structures
+          </details>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="5" name="document_type_analysis">
+      <title>Document Type and Content Analysis</title>
+      <description>
+        Analyze document types, content patterns, and classification accuracy using
+        STRATIFIED SAMPLING to ensure all document populations are represented.
+      </description>
+      <critical_requirement>
+        ⚠️ MANDATORY STRATIFIED SAMPLING ⚠️
+        
+        You MUST use stratified sampling by document class, NOT random sampling.
+        
+        Lessons learned from audit gaps:
+        - Random sampling of 50 documents missed DCGD_Document population entirely
+        - Specialized document classes were not represented in sample
+        - Led to incomplete integration discovery and underestimated issues
+        
+        REQUIRED APPROACH:
+        1. Sample documents from EVERY class with documents (proportional to class size)
+        2. Ensure minimum sample size per class (at least 3-5 documents per class)
+        3. Include ALL classes, even demo/test classes
+        4. Validate that sample represents full repository diversity
+      </critical_requirement>
+      <steps>
+        <step number="1">
+          <action>Design stratified sampling plan</action>
+          <details>
+            BEFORE sampling any documents, create a sampling plan:
+            
+            1. List ALL classes with their document counts (from Phase 2)
+            2. Calculate sample size per class using stratified approach:
+               - For classes with fewer than 10 documents: Sample ALL documents
+               - For classes with 10-50 documents: Sample 50% (minimum 5)
+               - For classes with 50-100 documents: Sample 30% (minimum 10)
+               - For classes with more than 100 documents: Sample 20% (minimum 15)
+            
+            3. Create sampling table:
+               | Class | Total Docs | Sample Size | Sampling % |
+               |-------|------------|-------------|------------|
+               | Document | 50 | 10 | 20% |
+               | [Class1] | 8 | 8 | 100% |
+               | [Class2] | 40 | 12 | 30% |
+            
+            4. Ensure total sample size is adequate (typically 50-100 documents minimum)
+            5. Document the sampling methodology in audit report
+            
+            This plan ensures NO document population is missed.
+          </details>
+          <importance>CRITICAL - Must be completed before any document sampling</importance>
+        </step>
+
+        <step number="2">
+          <action>Execute stratified document sampling</action>
+          <details>
+            For EACH class in the sampling plan:
+            1. Use document_search to retrieve documents from that specific class
+            2. Sample the planned number of documents from each class
+            3. For each sampled document:
+               - Use get_document_properties to examine metadata
+               - Use get_document_text_extract to analyze content (if text available)
+               - Record document ID, class, properties, and content summary
+            4. Track which classes have been sampled
+            5. Verify all classes in plan have been covered
+            
+            IMPORTANT: Do NOT skip any class, even if it appears to be:
+            - A demo or test class
+            - A class with few documents
+            - A class with unusual naming
+          </details>
+          <tool>use_mcp_tool (document_search, get_document_properties, get_document_text_extract)</tool>
+          <validation>
+            After sampling, verify:
+            - All classes in plan have been sampled
+            - Sample sizes match the plan
+            - No document populations were skipped
+          </validation>
+        </step>
+
+        <step number="3">
+          <action>Analyze document type patterns across ALL classes</action>
+          <details>
+            For each class with documents:
+            - Identify document type properties (DocType, DocumentType, etc.)
+            - Use document_search to find documents by type within each class
+            - Document common document types per class
+            - Identify type distribution patterns
+            - Note any type-to-class mismatches (e.g., Invoice in HRDocument class)
+            
+            Create comprehensive type distribution analysis:
+            - Types found in each class
+            - Frequency of each type
+            - Misclassification patterns
+            - Type-specific properties
+          </details>
+          <tool>use_mcp_tool (document_search)</tool>
+        </step>
+
+        <step number="4">
+          <action>Verify classification accuracy per class</action>
+          <details>
+            For documents in each class:
+            - Compare document content with assigned class
+            - Check if properties match class definition
+            - Identify misclassified documents
+            - Calculate misclassification rate PER CLASS
+            - Document patterns of misclassification
+            
+            Report misclassification by class:
+            | Class | Sampled | Correctly Classified | Misclassification Rate |
+            |-------|---------|---------------------|------------------------|
+            | Document | 10 | 0 | 100% |
+            | [Class1] | 8 | 2 | 75% |
+            | [Class2] | 12 | 0 | 100% |
+          </details>
+        </step>
+
+        <step number="3">
+          <action>Assess version management</action>
+
+        <step number="3">
+          <action>Create integration architecture Mermaid diagram</action>
+          <details>
+            MANDATORY: Create graph LR diagram showing:
+            - IBM FileNet repository at center
+            - All integrated external systems (SAP, Salesforce, GenAI, DocuSign, etc.)
+            - Data flow directions (bidirectional arrows)
+            - Property counts for each integration
+            - Color-code each system distinctly
+            
+            Include this diagram in both:
+            - Integration assessment section
+            - Executive summary for high-level overview
+          </details>
+          <tool>write_to_file (in analysis and summary documents)</tool>
+          <importance>CRITICAL - Integration visualization is essential for architecture understanding</importance>
+        </step>
+          <details>
+            For versioned documents:
+            - Use get_document_versions to analyze version history
+            - Document versioning patterns
+            - Identify version sprawl issues
+          </details>
+          <tool>use_mcp_tool (get_document_versions)</tool>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="6" name="integration_assessment">
+      <title>Integration Point Assessment</title>
+      <description>
+        Comprehensively identify and document ALL integration points with external systems.
+        CRITICAL: Use systematic property analysis to discover all integrations.
+      </description>
+      <critical_requirement>
+        ⚠️ MANDATORY COMPREHENSIVE INTEGRATION DISCOVERY ⚠️
+        
+        You MUST systematically discover ALL integration points, not just obvious ones.
+        
+        Lessons learned from audit gaps:
+        - IBM Datacap integration was completely missed
+        - Only discovered after finding DCGD_* properties in supplementary analysis
+        - Integration discovery was incomplete and ad-hoc
+        
+        REQUIRED APPROACH:
+        1. Analyze ALL custom properties across ALL classes for integration patterns
+        2. Search for property naming prefixes that indicate integrations
+        3. Examine document creators/modifiers for integration system accounts
+        4. Validate findings by checking actual document metadata
+      </critical_requirement>
+      <steps>
+        <step number="1">
+          <action>Systematic property-based integration discovery</action>
+          <details>
+            Analyze ALL custom properties from Phase 2 to identify integration patterns:
+            
+            1. Property Prefix Analysis:
+               Look for consistent property naming patterns that indicate integrations:
+               - Properties with system-specific prefixes (e.g., SAP*, SF*, etc.)
+               - Properties with integration-specific terminology
+               - Any consistent prefixes across multiple properties
+            
+            2. Property Name Pattern Analysis:
+               - Properties with "ID", "Link", "Trigger", "Timestamp" suffixes
+               - Properties referencing external system names
+               - Properties with integration-specific terminology
+            
+            3. Create comprehensive integration inventory:
+               | Integration System | Property Count | Property Names | Classes Using |
+               |-------------------|----------------|----------------|---------------|
+               | [System1] | N | [Properties...] | [Classes...] |
+               | [System2] | M | [Properties...] | [Classes...] |
+            
+            IMPORTANT: Review properties from ALL classes discovered in Phase 2.
+          </details>
+          <tool>Review class property descriptions from Phase 2</tool>
+          <importance>CRITICAL - Must analyze all properties systematically</importance>
+        </step>
+
+        <step number="2">
+          <action>Document creator/modifier analysis for integration accounts</action>
+          <details>
+            Examine document metadata to identify integration system accounts:
+            
+            1. From sampled documents in Phase 5, analyze Creator and LastModifier fields
+            2. Look for system account patterns:
+               - Service accounts with system names
+               - Integration user accounts
+               - Automated process accounts
+            
+            3. Map system accounts to integration systems:
+               - Look for system names in usernames
+               - Identify service account patterns
+               - Match to integration property patterns
+            
+            4. Document integration entry points:
+               | System Account | Integration System | Document Classes | Activity Period |
+               |----------------|-------------------|------------------|-----------------|
+               | [account] | [System] | [Classes] | [Period] |
+            
+            This reveals active integration points and their usage patterns.
+          </details>
+          <validation>
+            Cross-reference system accounts with property patterns to confirm integrations.
+          </validation>
+        </step>
+
+        <step number="3">
+          <action>Integration pattern and workflow documentation</action>
+          <details>
+            For EACH discovered integration system:
+            
+            1. Integration Overview:
+               - System name and purpose
+               - Integration type (inbound/outbound/bidirectional)
+               - Integration mechanism (API, file transfer, event-driven)
+            
+            2. Property Usage:
+               - List all properties used by this integration
+               - Document property purposes and data types
+               - Note required vs optional properties
+            
+            3. Document Classes:
+               - Which classes use this integration
+               - How many documents per class
+               - Usage patterns and frequency
+            
+            4. Data Flow:
+               - What data flows from external system to FileNet
+               - What data flows from FileNet to external system
+               - Trigger mechanisms (manual, automatic, scheduled)
+            
+            5. Integration Health:
+               - Are properties being populated correctly?
+               - Any indexing failures related to integration?
+               - Data quality issues from integration
+            
+            Example format:
+            - System: [Integration System Name]
+            - Type: Inbound/Outbound/Bidirectional
+            - Properties: [Count] properties with [prefix] pattern
+            - Classes: [Classes using this integration]
+            - Issues: [Any identified issues]
+          </details>
+        </step>
+
+        <step number="4">
+          <action>Create integration architecture diagram</action>
+          <details>
+            MANDATORY: Create comprehensive Mermaid diagram showing:
+            
+            ```mermaid
+            graph LR
+                FileNet[IBM FileNet P8]
+                System1[External System 1]
+                System2[External System 2]
+                System3[External System 3]
+                
+                System1 -->|Data Flow| FileNet
+                FileNet -->|Data Flow| System2
+                System3 -->|Data Flow| FileNet
+            ```
+            
+            Include:
+            - All discovered integration systems
+            - Data flow directions
+            - Property counts for each integration
+            - Color coding by integration type
+            
+            Place diagram in both integration analysis and executive summary.
+          </details>
+          <tool>write_to_file (in analysis documents with Mermaid code block)</tool>
+          <importance>CRITICAL - Visual integration map is essential</importance>
+        </step>
+
+        <step number="5">
+          <action>Validate integration completeness</action>
+          <details>
+            Final validation to ensure no integrations were missed:
+            
+            1. Review all custom properties again for any missed patterns
+            2. Check if any document classes have unexplained properties
+            3. Verify all system accounts have been mapped to integrations
+            4. Confirm integration count matches property prefix patterns
+            5. Ask: "Are there any properties that suggest an integration we haven't documented?"
+            
+            If validation reveals gaps, return to step 1 and re-analyze.
+          </details>
+          <importance>HIGH - Prevents missing integrations like Datacap</importance>
+        </step>
+      </steps>
+    </phase>
+
+    <phase number="7" name="report_generation">
+      <title>Audit Report Generation and Recommendations</title>
+      <description>
+        Compile findings into a comprehensive audit report with actionable recommendations
+      </description>
+      <steps>
+        <step number="1">
+          <action>Generate executive summary in reports folder</action>
+          <details>
+            Create Executive_Summary.md in audits/[ObjectStore]_[DATE]/reports/:
+            - Total number of classes
+            - Total number of properties
+            - Key findings and issues
+            - Priority recommendations
+            - Quick reference for stakeholders
+          </details>
+          <tool>write_to_file</tool>
+
+        <step number="5a">
+          <action>Create implementation roadmap Gantt chart</action>
+          <details>
+            MANDATORY: Create gantt diagram showing:
+            - All implementation phases (typically 5 phases over 12 months)
+            - Major tasks within each phase
+            - Dependencies between tasks
+            - Timeline with start/end dates
+            - Milestones and checkpoints
+            
+            Include this diagram in:
+            - Implementation roadmap document
+            - Executive summary
+            
+            This provides visual timeline for stakeholders and project planning.
+          </details>
+          <tool>write_to_file (in roadmap and summary documents)</tool>
+          <importance>CRITICAL - Timeline visualization is essential for planning</importance>
+        </step>
+
+        <step number="5b">
+          <action>Create consolidation comparison diagrams</action>
+          <details>
+            MANDATORY: For each consolidation opportunity, create graph LR diagrams showing:
+            - Current state: Multiple similar classes
+            - Proposed state: Unified consolidated class
+            - Migration paths with dotted arrows
+            - Color coding: red for deprecated, green for new unified class
+            
+            Create separate diagrams for:
+            - Invoice class consolidation
+            - Policy class consolidation
+            - Any other identified consolidation opportunities
+            
+            Include these in the consolidation plans document.
+          </details>
+          <tool>write_to_file (in recommendations/consolidation_plans.md)</tool>
+          <importance>HIGH - Visual before/after comparisons clarify consolidation strategy</importance>
+        </step>
+        </step>
+
+        <step number="2">
+          <action>Create comprehensive audit report</action>
+          <details>
+            Create Repository_Audit_Report.md in audits/[ObjectStore]_[DATE]/reports/:
+            - Complete detailed findings
+            - Current state assessment
+            - Issues identified with examples
+            - Impact analysis
+            - All recommendations
+            - Implementation roadmap
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="3">
+          <action>Generate detailed analysis files</action>
+          <details>
+            Create separate analysis files in audits/[ObjectStore]_[DATE]/analysis/:
+            - class_analysis.md: Detailed class findings
+            - property_analysis.md: Property usage and issues
+            - folder_analysis.md: Folder structure assessment
+            
+            This separation makes it easier to focus on specific areas.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="4">
+          <action>Create recommendation documents</action>
+          <details>
+            Create actionable recommendation files in audits/[ObjectStore]_[DATE]/recommendations/:
+            - consolidation_plans.md: Detailed consolidation strategies
+            - cleanup_actions.md: Step-by-step cleanup tasks
+            - implementation_roadmap.md: Phased implementation plan
+            
+            Organize by priority and effort level for easy action planning.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="5">
+          <action>Generate data artifacts</action>
+          <details>
+            Create CSV/JSON files in audits/[ObjectStore]_[DATE]/data/:
+            - class_inventory.csv: Complete class list with statistics
+            - property_matrix.csv: Property usage across classes
+            - document_counts.csv: Document counts per class
+            - integration_points.json: Integration property mapping
+            
+            These files support data analysis and reporting tools.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="6">
+          <action>Update audit metadata</action>
+          <details>
+            Update audit_metadata.json with completion information:
+            - Set status to "completed"
+            - Add completion_date
+            - Add summary statistics
+            - List generated artifacts
+            
+            This provides audit history and tracking.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+
+        <step number="7">
+          <action>Create audit index</action>
+          <details>
+            Create README.md in audits/[ObjectStore]_[DATE]/ root:
+            - Overview of audit
+            - Quick links to all reports
+            - Summary of key findings
+            - Navigation guide to artifacts
+            
+            This serves as the entry point for the audit results.
+          </details>
+          <tool>write_to_file</tool>
+        </step>
+      </steps>
+    </phase>
+  </audit_phases>
+
+  <completion_criteria>
+    <criterion>All requested audit areas have been analyzed</criterion>
+    <criterion>Comprehensive audit report has been generated</criterion>
+    <criterion>Actionable recommendations have been provided</criterion>
+    <criterion>Supporting data and artifacts have been created</criterion>
+    <criterion>User has reviewed and approved the audit findings</criterion>
+  </completion_criteria>
+
+  <best_practices>
+    <practice>Work systematically through each phase</practice>
+    <practice>Document findings as you discover them</practice>
+    <practice>Use concrete examples to illustrate issues</practice>
+    <practice>Provide specific, actionable recommendations</practice>
+    <practice>Consider the user's context and constraints</practice>
+    <practice>Balance thoroughness with practical time constraints</practice>
+  </best_practices>
+</repository_audit_workflow>
+
+<!-- Made with Bob -->

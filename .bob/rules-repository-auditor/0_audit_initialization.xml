@@ -1,0 +1,187 @@
+<audit_initialization>
+  <critical_requirement>
+    When a user requests a "full audit", "comprehensive audit", or "prepare for audit",
+    you MUST start with Phase 1: Planning and Preparation BEFORE any analysis work.
+    
+    DO NOT skip directly to class discovery or property analysis.
+    DO NOT assume the user wants to skip planning.
+    
+    The planning phase is MANDATORY and sets up the entire audit for success.
+  </critical_requirement>
+
+  <initialization_sequence>
+    <step number="1" priority="CRITICAL">
+      <action>Read MCP Configuration</action>
+      <details>
+        ALWAYS start by reading .bob/mcp.json to extract:
+        - Object Store name from mcpServers.content-repository.env.OBJECT_STORE
+        - This name will be used for the audit folder structure
+        
+        If the Object Store name is not found, ask the user to provide it.
+      </details>
+      <tool>read_file</tool>
+      <example>
+        Object Store: "OS2" → Audit folder: audits/OS2_19-05/
+      </example>
+    </step>
+
+    <step number="2" priority="CRITICAL">
+      <action>Confirm Audit Scope</action>
+      <details>
+        Ask the user to confirm what type of audit they want:
+        - Full comprehensive audit (all 7 phases)
+        - Focused audit (specific areas only)
+        - Quick assessment (high-level overview)
+        
+        For "full audit" requests, proceed with all phases.
+        For focused audits, clarify which areas to analyze.
+      </details>
+      <tool>ask_followup_question</tool>
+    </step>
+
+    <step number="3" priority="CRITICAL">
+      <action>Create Audit Folder Structure Using Python Script</action>
+      <details>
+        Use the init_audit.py script to create the standardized folder structure:
+        
+        Command: python tools/init_audit.py
+        
+        The script will:
+        - Read Object Store name from .bob/mcp.json
+        - Create audits/[ObjectStore]_[DATE]/ hierarchy
+        - Generate reports/, data/, analysis/, recommendations/ folders
+        - Create audit_metadata.json with initialization info
+        - Create README.md with folder structure documentation
+        
+        This ensures consistent, well-documented audit structure.
+        
+        Alternative: If script fails, fall back to manual creation:
+        execute_command: mkdir -p audits/[OS]_[DATE]/{reports,data,analysis,recommendations}
+      </details>
+      <tool>execute_command (python tools/init_audit.py)</tool>
+      <importance>CRITICAL - Must be done before any analysis</importance>
+    </step>
+
+    <step number="4" priority="HIGH">
+      <action>Create Audit Plan Document</action>
+      <details>
+        Create Audit_Plan.md in the audit folder root with:
+        - Audit overview and objectives
+        - Scope definition
+        - All 7 phases with tasks
+        - Expected deliverables
+        - Timeline estimates
+        
+        This serves as the roadmap for the entire audit.
+      </details>
+      <tool>write_to_file</tool>
+    </step>
+
+    <step number="5" priority="HIGH">
+      <action>Initialize Progress Tracking</action>
+      <details>
+        Create a todo list with all major audit tasks:
+        - [ ] Complete planning and setup
+        - [ ] Discover and analyze document classes
+        - [ ] Analyze property usage
+        - [ ] Assess folder structure
+        - [ ] Analyze document types
+        - [ ] Document integrations
+        - [ ] Generate reports and recommendations
+        
+        Update this list as you progress through the audit.
+      </details>
+      <tool>update_todo_list</tool>
+    </step>
+
+    <step number="6" priority="MEDIUM">
+      <action>Verify MCP Connectivity</action>
+      <details>
+        Test MCP server connection by calling list_root_classes.
+        This confirms the repository is accessible before proceeding.
+        
+        If connection fails, report the error and stop.
+      </details>
+      <tool>use_mcp_tool</tool>
+    </step>
+  </initialization_sequence>
+
+  <user_request_patterns>
+    <pattern trigger="full audit">
+      <response>Execute complete initialization sequence, then proceed with all 7 phases</response>
+    </pattern>
+    
+    <pattern trigger="prepare for audit">
+      <response>Execute initialization sequence, create plan, then wait for user confirmation to proceed</response>
+    </pattern>
+    
+    <pattern trigger="audit [specific area]">
+      <response>Execute initialization sequence, but focus analysis on specified area only</response>
+    </pattern>
+    
+    <pattern trigger="quick assessment">
+      <response>Execute initialization sequence with simplified plan, focus on high-level findings</response>
+    </pattern>
+  </user_request_patterns>
+
+  <common_mistakes_to_avoid>
+    <mistake>
+      <error>Jumping directly to class discovery without planning</error>
+      <consequence>Disorganized outputs, missing context, incomplete analysis</consequence>
+      <correction>Always start with Phase 1: Planning</correction>
+    </mistake>
+    
+    <mistake>
+      <error>Creating audit files in wrong location (e.g., audits/ root instead of audits/OS_DATE/)</error>
+      <consequence>Files scattered, hard to manage multiple audits</consequence>
+      <correction>Always use [ObjectStore]_[DATE] subfolder structure</correction>
+    </mistake>
+    
+    <mistake>
+      <error>Not reading MCP config to get Object Store name</error>
+      <consequence>Using hardcoded or incorrect Object Store names</consequence>
+      <correction>Always read .bob/mcp.json first</correction>
+    </mistake>
+    
+    <mistake>
+      <error>Skipping folder structure creation</error>
+      <consequence>Files created in wrong locations, missing organization</consequence>
+      <correction>Create complete folder structure in step 3</correction>
+    </mistake>
+  </common_mistakes_to_avoid>
+
+  <success_criteria>
+    <criterion>Object Store name extracted from MCP config</criterion>
+    <criterion>Audit folder structure created: audits/[OS]_[DATE]/</criterion>
+    <criterion>Audit plan document created</criterion>
+    <criterion>Progress tracking initialized</criterion>
+    <criterion>MCP connectivity verified</criterion>
+    <criterion>User has confirmed scope and is ready to proceed</criterion>
+  </success_criteria>
+
+  <example_initialization>
+    <scenario>User says "Prepare for a full audit"</scenario>
+    <correct_sequence>
+      1. Read .bob/mcp.json → Extract "OS2" as Object Store name
+      2. Ask user to confirm full audit scope
+      3. Execute: python tools/init_audit.py
+         → Creates audits/OS2_19-05/ with complete folder structure
+         → Generates audit_metadata.json and README.md
+      4. Create Audit_Plan.md with all 7 phases in the audit folder
+      5. Initialize todo list with major tasks
+      6. Test MCP connection with list_root_classes
+      7. Inform user that planning is complete and ready to begin Phase 2
+    </correct_sequence>
+    <output_example>
+      ✓ Created: audits/OS2_19-05/
+      ✓ Created: audits/OS2_19-05/reports/
+      ✓ Created: audits/OS2_19-05/data/
+      ✓ Created: audits/OS2_19-05/analysis/
+      ✓ Created: audits/OS2_19-05/recommendations/
+      ✓ Created: audits/OS2_19-05/audit_metadata.json
+      ✓ Created: audits/OS2_19-05/README.md
+    </output_example>
+  </example_initialization>
+</audit_initialization>
+
+<!-- Made with Bob -->

@@ -1,0 +1,564 @@
+<audit_reporting_templates>
+  <overview>
+    Templates and structures for generating comprehensive, actionable audit reports.
+    These templates ensure consistency and completeness across different audit types.
+  </overview>
+
+  <main_audit_report_template>
+    <title>Repository Audit Report Template</title>
+    <structure>
+      <![CDATA[
+# IBM FileNet Repository Audit Report
+
+**Audit Date:** [Date]
+**Repository:** [Object Store Name]
+**Auditor:** Bob (AI Repository Auditor)
+**Scope:** [Full Audit / Specific Focus Area]
+
+---
+
+## Executive Summary
+
+### Key Findings
+- **Total Document Classes:** [Number]
+- **Total Properties:** [Number] ([Custom] custom, [System] system)
+- **Total Documents:** [Approximate count]
+- **Critical Issues:** [Number]
+- **Optimization Opportunities:** [Number]
+
+### Priority Recommendations
+1. [High priority recommendation 1]
+2. [High priority recommendation 2]
+3. [High priority recommendation 3]
+
+### Expected Benefits
+- [Benefit 1: e.g., Reduced complexity]
+- [Benefit 2: e.g., Improved performance]
+- [Benefit 3: e.g., Better governance]
+
+---
+
+## 1. Repository Overview
+
+### 1.1 Class Architecture
+- **Root Classes Analyzed:** [List]
+- **Document Classes:** [Number]
+- **Folder Classes:** [Number]
+- **Other Classes:** [Number]
+
+### 1.2 Naming Conventions Observed
+- [Pattern 1: e.g., HR_ prefix for HR documents]
+- [Pattern 2: e.g., usr1_, usr2_ for user-specific classes]
+- [Pattern 3: e.g., Demo/Test classes present]
+
+### 1.3 Integration Points
+- [Integration 1: e.g., SAP integration via SAP* properties]
+- [Integration 2: e.g., Salesforce integration via SF* properties]
+- [Integration 3: e.g., DocuFlow integration]
+
+---
+
+## 2. Document Class Analysis
+
+### 2.1 Class Inventory
+
+| Class Name | Display Name | Parent | Properties | Documents | Status |
+|------------|--------------|--------|------------|-----------|--------|
+| [ClassName] | [Display] | [Parent] | [Count] | [Count] | [Active/Unused] |
+
+### 2.2 Class Categories
+
+#### Active Core Classes (High Usage)
+Classes with more than 100 documents, clear business purpose, actively used.
+
+**Classes:**
+- **[ClassName]** - [Description]
+  - Documents: [Count]
+  - Properties: [Count]
+  - Purpose: [Business purpose]
+  - Recommendation: Keep and optimize
+
+#### Specialized Classes (Moderate Usage)
+Classes with 10-100 documents, specific business need.
+
+**Classes:**
+- **[ClassName]** - [Description]
+  - Documents: [Count]
+  - Recommendation: [Keep with documentation / Review]
+
+#### Candidate for Consolidation
+Classes with overlapping purposes or low usage.
+
+**Classes:**
+- **[ClassName1]**, **[ClassName2]**, **[ClassName3]**
+  - Issue: [Duplicate functionality / Similar purpose]
+  - Recommendation: Consolidate into [NewClassName]
+
+#### Legacy/Unused Classes
+Classes with minimal or no documents.
+
+**Classes:**
+- **[ClassName]** - [Count] documents
+  - Recommendation: Deprecate and remove
+
+### 2.3 Key Findings
+
+#### Finding 1: [Issue Title]
+**Severity:** High / Medium / Low
+**Description:** [Detailed description of the issue]
+**Impact:** [Business and technical impact]
+**Examples:**
+- [Specific example 1]
+- [Specific example 2]
+**Recommendation:** [Specific action to take]
+
+---
+
+## 3. Property Analysis
+
+### 3.1 Property Statistics
+
+| Class | Total Props | Custom Props | System Props | Searchable | Integration |
+|-------|-------------|--------------|--------------|------------|-------------|
+| [Class] | [Count] | [Count] | [Count] | [Count] | [Count] |
+
+### 3.2 Property Categories
+
+#### System Properties
+Standard FileNet properties present across all classes:
+- Identity properties (Id, Creator, Owner)
+- Version control properties
+- Audit properties (DateCreated, DateLastModified)
+- Content management properties
+
+#### Business Properties
+Custom properties specific to business needs:
+- **[PropertyName]** ([DataType]) - [Description]
+  - Used in: [ClassList]
+  - Searchable: Yes/No
+  - Population rate: [Percentage]
+
+#### Integration Properties
+Properties supporting external system integration:
+- **SAP Properties:** [List]
+- **Salesforce Properties:** [List]
+- **Other Integration Properties:** [List]
+
+### 3.3 Property Issues
+
+#### Inconsistent Naming
+Properties with similar purposes but different names:
+- [Property1], [Property2], [Property3]
+- Recommendation: Standardize to [StandardName]
+
+#### Unused Properties
+Properties with low or zero population:
+- **[PropertyName]** - Population rate: [Percentage]
+- Recommendation: [Remove / Document usage / Review]
+
+#### Missing Descriptions
+Properties without clear descriptions:
+- [PropertyList]
+- Recommendation: Add descriptions for clarity
+
+---
+
+## 4. Folder Structure Analysis
+
+### 4.1 Folder Organization
+
+**Root Folders:**
+- [FolderPath1]
+- [FolderPath2]
+- [FolderPath3]
+
+**Organization Patterns:**
+- [Pattern 1: e.g., By department]
+- [Pattern 2: e.g., By project]
+- [Pattern 3: e.g., By date]
+
+### 4.2 Folder Hierarchy
+
+**Average Depth:** [Number] levels
+**Deepest Path:** [Path] ([Number] levels)
+**Shallowest Path:** [Path] ([Number] levels)
+
+### 4.3 Folder Issues
+
+#### Empty Folders
+Folders with no documents:
+- [FolderPath1]
+- [FolderPath2]
+- Recommendation: Remove or document purpose
+
+#### Inconsistent Naming
+Folders with inconsistent naming conventions:
+- [Example inconsistencies]
+- Recommendation: Establish naming standards
+
+---
+
+## 5. Document Type Analysis
+
+### 5.1 Document Types by Class
+
+| Class | Document Type Property | Common Values | Distribution |
+|-------|------------------------|---------------|--------------|
+| [Class] | [PropertyName] | [Value1, Value2] | [Percentages] |
+
+### 5.2 Classification Accuracy
+
+**Sample Size:** [Number] documents reviewed
+**Correctly Classified:** [Percentage]
+**Misclassified:** [Percentage]
+
+**Misclassification Examples:**
+- [Document] in [Class] should be in [CorrectClass]
+- Reason: [Explanation]
+
+---
+
+## 6. Integration Assessment
+
+### 6.1 SAP Integration
+**Classes Using SAP Integration:** [Number]
+**SAP Properties Found:**
+- SAPEmployeeID
+- SAPDocId
+- [Other properties]
+
+**Status:** Active / Inactive / Partially Used
+**Recommendation:** [Maintain / Review / Document]
+
+### 6.2 Salesforce Integration
+**Classes Using Salesforce Integration:** [Number]
+**Salesforce Properties Found:**
+- SFLinkTrigger
+- SfSalesforceRelationships
+- [Other properties]
+
+**Status:** Active / Inactive / Partially Used
+**Recommendation:** [Maintain / Review / Document]
+
+### 6.3 Other Integrations
+[List and describe other integration points]
+
+---
+
+## 7. Recommendations
+
+### 7.1 High Priority (Immediate Action)
+
+#### Recommendation 1: [Title]
+**Priority:** High
+**Effort:** Quick Win / Short-term / Long-term
+**Description:** [Detailed recommendation]
+**Expected Benefits:**
+- [Benefit 1]
+- [Benefit 2]
+**Action Steps:**
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+### 7.2 Medium Priority (Short-term)
+
+#### Recommendation 2: [Title]
+**Priority:** Medium
+**Effort:** [Effort level]
+**Description:** [Detailed recommendation]
+**Expected Benefits:** [Benefits]
+**Action Steps:** [Steps]
+
+### 7.3 Low Priority (Long-term)
+
+#### Recommendation 3: [Title]
+**Priority:** Low
+**Effort:** [Effort level]
+**Description:** [Detailed recommendation]
+**Expected Benefits:** [Benefits]
+**Action Steps:** [Steps]
+
+---
+
+## 8. Implementation Roadmap
+
+### Phase 1: Quick Wins (Weeks 1-2)
+- [ ] [Action item 1]
+- [ ] [Action item 2]
+- [ ] [Action item 3]
+
+### Phase 2: Consolidation (Weeks 3-6)
+- [ ] [Action item 1]
+- [ ] [Action item 2]
+- [ ] [Action item 3]
+
+### Phase 3: Governance (Weeks 7-10)
+- [ ] [Action item 1]
+- [ ] [Action item 2]
+- [ ] [Action item 3]
+
+### Phase 4: Optimization (Ongoing)
+- [ ] [Action item 1]
+- [ ] [Action item 2]
+- [ ] [Action item 3]
+
+---
+
+## 9. Risk Assessment
+
+| Risk | Impact | Probability | Mitigation |
+|------|--------|-------------|------------|
+| [Risk 1] | High/Medium/Low | High/Medium/Low | [Mitigation strategy] |
+
+---
+
+## 10. Success Metrics
+
+| Metric | Current | Target | Timeline |
+|--------|---------|--------|----------|
+| Total document classes | [Number] | [Target] | [Timeline] |
+| Classes without documentation | [Number] | 0 | [Timeline] |
+| Duplicate classes | [Number] | 0 | [Timeline] |
+| Property population rate | [Percentage] | 80%+ | [Timeline] |
+
+---
+
+## Appendices
+
+### Appendix A: Complete Class List
+[Link to separate CSV/JSON file or detailed table]
+
+### Appendix B: Property Matrix
+[Link to separate file with all properties by class]
+
+### Appendix C: Consolidation Candidates
+[Detailed list of classes to consolidate]
+
+### Appendix D: SQL Queries Used
+[Document queries used for analysis]
+
+---
+
+## Conclusion
+
+[Summary of audit findings and next steps]
+
+**Contact:** [Your contact information]
+**Next Review Date:** [Date]
+      ]]>
+    </structure>
+  </main_audit_report_template>
+
+  <focused_audit_templates>
+    <template name="class_analysis_only">
+      <title>Document Class Analysis Report</title>
+      <sections>
+        <section>Executive Summary</section>
+        <section>Class Inventory</section>
+        <section>Class Categories (Active, Specialized, Legacy)</section>
+        <section>Naming Convention Analysis</section>
+        <section>Consolidation Opportunities</section>
+        <section>Recommendations</section>
+      </sections>
+    </template>
+
+    <template name="property_analysis_only">
+      <title>Property Usage Analysis Report</title>
+      <sections>
+        <section>Executive Summary</section>
+        <section>Property Statistics by Class</section>
+        <section>Property Categories (System, Business, Integration)</section>
+        <section>Property Usage Patterns</section>
+        <section>Unused or Underutilized Properties</section>
+        <section>Naming Inconsistencies</section>
+        <section>Recommendations</section>
+      </sections>
+    </template>
+
+    <template name="folder_structure_only">
+      <title>Folder Structure Analysis Report</title>
+      <sections>
+        <section>Executive Summary</section>
+        <section>Folder Hierarchy Overview</section>
+        <section>Organization Patterns</section>
+        <section>Naming Conventions</section>
+        <section>Empty or Orphaned Folders</section>
+        <section>Recommendations</section>
+      </sections>
+    </template>
+  </focused_audit_templates>
+
+  <supporting_artifacts>
+    <artifact name="class_inventory_csv">
+      <title>Class Inventory (CSV Format)</title>
+      <structure>
+        <![CDATA[
+Class Symbolic Name,Display Name,Parent Class,Total Properties,Custom Properties,Document Count,Status,Recommendation
+HRDocument,HR Document,Document,109,44,150,Active,Keep and optimize
+Invoice,Invoice,Document,85,20,75,Active,Consolidate with Invoice_ach
+Invoice_ach,Invoice ACH,Document,82,18,23,Active,Consolidate into Finance_Invoice
+DemoDocument,Demo Document,Document,65,0,0,Unused,Remove
+        ]]>
+      </structure>
+    </artifact>
+
+    <artifact name="property_matrix_csv">
+      <title>Property Matrix (CSV Format)</title>
+      <structure>
+        <![CDATA[
+Property Name,Data Type,Cardinality,Searchable,Class1,Class2,Class3,Description
+EmployeeID,STRING,SINGLE,Yes,HRDocument,,,Employee identifier
+FirstName,STRING,SINGLE,Yes,HRDocument,,,Employee first name
+Department,STRING,SINGLE,Yes,HRDocument,Invoice,Contract,Department assignment
+        ]]>
+      </structure>
+    </artifact>
+
+    <artifact name="consolidation_plan">
+      <title>Class Consolidation Plan</title>
+      <structure>
+        <![CDATA[
+# Class Consolidation Plan
+
+## Consolidation Group 1: Invoice Classes
+
+### Current Classes
+- Invoice (75 documents)
+- Invoice_ach (23 documents)
+- JKJInvoice (12 documents)
+
+### Proposed Consolidated Class
+**Name:** Finance_Invoice
+**Properties:** Combined properties from all three classes
+**New Property:** InvoiceType (STRING, Choice List: Standard, ACH, JKJ)
+
+### Migration Steps
+1. Create Finance_Invoice class with combined properties
+2. Add InvoiceType property with choice list
+3. Migrate documents from Invoice → Finance_Invoice (InvoiceType = Standard)
+4. Migrate documents from Invoice_ach → Finance_Invoice (InvoiceType = ACH)
+5. Migrate documents from JKJInvoice → Finance_Invoice (InvoiceType = JKJ)
+6. Update workflows and integrations
+7. Deprecate old classes
+8. Remove after 30-day grace period
+
+### Expected Benefits
+- Reduced class count by 2
+- Simplified maintenance
+- Consistent invoice handling
+- Easier reporting across invoice types
+        ]]>
+      </structure>
+    </artifact>
+  </supporting_artifacts>
+
+  <formatting_guidelines>
+    <guideline category="markdown">
+      <rule>Use # for main sections, ## for subsections, ### for sub-subsections</rule>
+      <rule>Use **bold** for emphasis on key findings</rule>
+      <rule>Use `code formatting` for class names, property names, and technical terms</rule>
+      <rule>Use tables for structured data comparison</rule>
+      <rule>Use bullet points for lists</rule>
+      <rule>Use numbered lists for sequential steps</rule>
+    </guideline>
+
+    <guideline category="tables">
+      <rule>Always include header row with column names</rule>
+      <rule>Use alignment for better readability (left for text, right for numbers)</rule>
+      <rule>Keep tables concise - move large tables to appendices</rule>
+      <rule>Include totals or summaries where appropriate</rule>
+    </guideline>
+
+    <guideline category="recommendations">
+      <rule>Always include Priority (High/Medium/Low)</rule>
+      <rule>Always include Effort level (Quick Win/Short-term/Long-term)</rule>
+      <rule>Provide specific action steps, not vague suggestions</rule>
+      <rule>Quantify expected benefits where possible</rule>
+    </guideline>
+
+    <guideline category="examples">
+      <rule>Always use real class names and property names from the audit</rule>
+      <rule>Provide specific document counts and statistics</rule>
+      <rule>Include concrete examples for each finding</rule>
+      <rule>Show before/after comparisons for recommendations</rule>
+    </guideline>
+  </formatting_guidelines>
+
+  <report_generation_workflow>
+    <step number="1">
+      <action>Create report file at start of audit</action>
+      <details>
+        Use filename format: Repository_Audit_Report_YYYY-MM-DD.md
+        Include basic structure with all main sections
+      </details>
+    </step>
+
+    <step number="2">
+      <action>Update Executive Summary last</action>
+      <details>
+        Write executive summary after completing all analysis sections
+        to ensure it accurately reflects findings
+      </details>
+    </step>
+
+    <step number="3">
+      <action>Populate sections incrementally</action>
+      <details>
+        Add findings to each section as you complete that phase of analysis
+        Don't wait until the end to document everything
+      </details>
+    </step>
+
+    <step number="4">
+      <action>Generate supporting artifacts</action>
+      <details>
+        Create CSV files for class inventory and property matrix
+        Create separate files for detailed data
+        Link to these files from main report
+      </details>
+    </step>
+
+    <step number="5">
+      <action>Review and refine</action>
+      <details>
+        Check for completeness, clarity, and actionability
+        Ensure all recommendations have specific action steps
+        Verify all statistics and counts are accurate
+      </details>
+    </step>
+  </report_generation_workflow>
+
+  <quality_checklist>
+    <category name="completeness">
+      <item>All requested audit areas are covered</item>
+      <item>Executive summary captures key findings</item>
+      <item>Each finding has concrete examples</item>
+      <item>All recommendations have action steps</item>
+      <item>Supporting data is included or referenced</item>
+    </category>
+
+    <category name="clarity">
+      <item>Technical terms are explained or obvious from context</item>
+      <item>Tables and charts are properly labeled</item>
+      <item>Sections flow logically</item>
+      <item>Recommendations are specific and actionable</item>
+    </category>
+
+    <category name="accuracy">
+      <item>All class names and property names are correct</item>
+      <item>Document counts and statistics are accurate</item>
+      <item>Examples are real and verifiable</item>
+      <item>Recommendations are feasible</item>
+    </category>
+
+    <category name="actionability">
+      <item>Recommendations are prioritized</item>
+      <item>Effort levels are estimated</item>
+      <item>Benefits are quantified where possible</item>
+      <item>Implementation roadmap is provided</item>
+    </category>
+  </quality_checklist>
+</audit_reporting_templates>
+
+<!-- Made with Bob -->

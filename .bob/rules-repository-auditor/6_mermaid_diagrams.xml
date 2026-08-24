@@ -1,0 +1,265 @@
+<mermaid_diagram_guidelines>
+  <overview>
+    Mermaid diagrams are powerful visual tools that help illustrate repository structure, relationships,
+    and workflows. You MUST create Mermaid diagrams throughout the audit process to visualize findings
+    and make complex information more accessible.
+  </overview>
+
+  <mandatory_requirement>
+    ALWAYS create Mermaid diagrams when analyzing:
+    - Document class hierarchies and inheritance
+    - Folder structure and organization patterns
+    - Integration architecture and data flows
+    - Implementation roadmap phases and timelines
+    - Property relationships across classes
+    - Workflow processes and state transitions
+  </mandatory_requirement>
+
+  <diagram_types>
+    <type name="class_diagram">
+      <syntax>classDiagram</syntax>
+      <purpose>Visualize document class hierarchies and inheritance relationships</purpose>
+      <example><![CDATA[
+```mermaid
+classDiagram
+    Document <|-- HRDocument
+    Document <|-- Email
+    Document <|-- Invoice
+    
+    class Document {
+        +DocumentTitle: String
+        +Creator: String
+        +DateCreated: Date
+        +ContentSize: Double
+    }
+    
+    class HRDocument {
+        +EmployeeID: String
+        +Department: String
+        +SAPEmployeeID: String
+        +42 custom properties
+    }
+    
+    note for HRDocument "109 total properties"
+```
+      ]]></example>
+    </type>
+
+    <type name="folder_hierarchy">
+      <syntax>graph TD</syntax>
+      <purpose>Visualize folder structure and organization patterns</purpose>
+      <example><![CDATA[
+```mermaid
+graph TD
+    Root["/"] --> BOB["/BOB_LAB"]
+    Root --> RAF["/Raiffeisen"]
+    Root --> INV["/MyInvenio/HR"]
+    
+    BOB --> JABRI["JABRI"]
+    JABRI --> JAB001["JAB001_Jade Robin"]
+    JAB001 --> J01["01_Recruitment"]
+    JAB001 --> J02["02_Employment_Contract"]
+    JAB001 --> J08["...08_Exit"]
+    
+    style BOB fill:#e1f5ff
+    style RAF fill:#fff4e1
+    style INV fill:#f0ffe1
+```
+      ]]></example>
+    </type>
+
+    <type name="integration_architecture">
+      <syntax>graph LR</syntax>
+      <purpose>Visualize integration points and data flows</purpose>
+      <example><![CDATA[
+```mermaid
+graph LR
+    FileNet[IBM FileNet Repository]
+    
+    SAP[SAP] -->|8 properties| FileNet
+    SF[Salesforce] -->|2 properties| FileNet
+    GenAI[Watsonx] -->|2 properties| FileNet
+    DS[DocuSign] -->|2 properties| FileNet
+    
+    FileNet -->|Retrieval| SAP
+    FileNet -->|Sync| SF
+    
+    style FileNet fill:#4a90e2,color:#fff
+    style SAP fill:#f39c12
+    style SF fill:#00a1e0
+```
+      ]]></example>
+    </type>
+
+    <type name="timeline_gantt">
+      <syntax>gantt</syntax>
+      <purpose>Visualize implementation roadmap and project phases</purpose>
+      <example><![CDATA[
+```mermaid
+gantt
+    title Implementation Roadmap
+    dateFormat YYYY-MM-DD
+    section Phase 1
+    Governance Framework    :p1, 2026-06-01, 2w
+    Documentation          :p2, after p1, 2w
+    section Phase 2
+    Class Consolidation    :p3, after p2, 8w
+```
+      ]]></example>
+    </type>
+
+    <type name="flowchart">
+      <syntax>flowchart TD</syntax>
+      <purpose>Visualize processes, workflows, and decision trees</purpose>
+      <example><![CDATA[
+```mermaid
+flowchart TD
+    Start([Start Audit]) --> Connect{MCP Connected?}
+    Connect -->|Yes| Discover[Discover Classes]
+    Connect -->|No| Error[Report Error]
+    Discover --> Analyze[Analyze Properties]
+    Analyze --> Report[Generate Reports]
+    Report --> Complete([Complete])
+    
+    style Start fill:#90EE90
+    style Complete fill:#90EE90
+```
+      ]]></example>
+    </type>
+
+    <type name="pie_chart">
+      <syntax>pie</syntax>
+      <purpose>Visualize distribution and proportions</purpose>
+      <example><![CDATA[
+```mermaid
+pie title Document Distribution
+    "HRDocument" : 450
+    "Email" : 230
+    "Invoice" : 180
+    "Policy" : 95
+```
+      ]]></example>
+    </type>
+  </diagram_types>
+
+  <best_practices>
+    <practice priority="high">
+      Always include diagrams in audit reports - visual representations make complex information accessible
+    </practice>
+    <practice priority="high">
+      Create diagrams progressively as you gather information, not just at the end
+    </practice>
+    <practice priority="high">
+      Use consistent styling and color schemes across related diagrams
+    </practice>
+    <practice priority="medium">
+      Add notes and annotations to clarify complex relationships
+    </practice>
+    <practice priority="medium">
+      Keep diagrams focused - create multiple simple diagrams rather than one complex diagram
+    </practice>
+    <practice priority="medium">
+      Include diagram titles and legends when needed
+    </practice>
+  </best_practices>
+
+  <diagram_placement>
+    <location name="Executive Summary">
+      - High-level folder hierarchy (simplified)
+      - Integration architecture overview
+      - Implementation timeline (Gantt chart)
+    </location>
+    <location name="Class Inventory">
+      - Complete class hierarchy diagram
+      - Class consolidation before/after comparison
+      - Property inheritance visualization
+    </location>
+    <location name="Folder Structure Analysis">
+      - Complete folder hierarchy for each organization
+      - Folder naming pattern comparison
+      - Proposed standardized structure
+    </location>
+    <location name="Integration Assessment">
+      - Integration architecture with data flows
+      - Property mapping across integrations
+    </location>
+    <location name="Implementation Roadmap">
+      - Gantt chart showing all phases
+      - Dependency flowchart
+    </location>
+  </diagram_placement>
+
+  <common_patterns>
+    <pattern name="class_consolidation">
+      <description>Show before and after state of class consolidation</description>
+      <template><![CDATA[
+```mermaid
+graph LR
+    subgraph "Current"
+        D1[Document] --> I1[Invoice_ach]
+        D1 --> I2[JKJInvoice]
+    end
+    subgraph "Proposed"
+        D2[Document] --> I3[Invoice Unified]
+    end
+    I1 -.->|Migrate| I3
+    I2 -.->|Migrate| I3
+    style I3 fill:#90EE90
+    style I1 fill:#FFB6C1
+```
+      ]]></template>
+    </pattern>
+
+    <pattern name="folder_naming_comparison">
+      <description>Compare naming conventions across organizations</description>
+      <template><![CDATA[
+```mermaid
+graph TD
+    subgraph "BOB_LAB"
+        B1["JAB001_Name"]
+    end
+    subgraph "Raiffeisen"
+        R1["COG001_Name"]
+    end
+    subgraph "Proposed"
+        P1["BOB000001_Name"]
+    end
+    B1 -.->|Standardize| P1
+    R1 -.->|Standardize| P1
+    style P1 fill:#90EE90
+```
+      ]]></template>
+    </pattern>
+  </common_patterns>
+
+  <mandatory_diagrams>
+    <requirement phase="Class Discovery">
+      Create classDiagram showing all discovered classes and inheritance
+    </requirement>
+    <requirement phase="Folder Analysis">
+      Create graph TD for folder hierarchy of each organization
+    </requirement>
+    <requirement phase="Integration Assessment">
+      Create graph LR showing integration architecture and data flows
+    </requirement>
+    <requirement phase="Implementation Planning">
+      Create gantt chart with all phases and milestones
+    </requirement>
+    <requirement phase="Class Consolidation">
+      Create before/after comparison for consolidation opportunities
+    </requirement>
+  </mandatory_diagrams>
+
+  <quality_checklist>
+    - Diagram has clear title or context
+    - All nodes have meaningful labels
+    - Relationships clearly indicated with arrows
+    - Color coding is consistent and meaningful
+    - Not overcrowded (max 20 nodes recommended)
+    - Important notes are annotated
+    - Syntax is valid and renders correctly
+    - Adds value beyond text description
+  </quality_checklist>
+</mermaid_diagram_guidelines>
+
+<!-- Made with Bob -->

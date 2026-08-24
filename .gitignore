@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.bob/mcp.*
+.bob/test.json
+
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+graphql/.env
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Sensitive data
+*.key
+*.pem
+credentials.json
+secrets.json
+.env
+graphql/config.local.json
+
+# HR Documents (if you don't want to commit the generated files)
+HR_JABRI/
+
+# Temporary files
+*.tmp
+*.bak
+.bob/mcp.old
+.bob/mcp.json
