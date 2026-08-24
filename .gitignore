@@ -57,4 +57,4 @@ HR_JABRI/
 *.tmp
 *.bak
 .bob/mcp.old
-.bob/mcp.json
+#   .bob/mcp.json
